@@ -175,4 +175,33 @@ const guildsSchema = new Schema({
     },
 });
 
-export const GuildData = model<GuildDataFirst>('Guild', guildsSchema);
+
+const AntiRFSchema = new Schema({
+    user: SchemaTypes.String,
+    content: SchemaTypes.String,
+    amount: SchemaTypes.Number,
+    isBloqued: SchemaTypes.Boolean,
+    isToken: SchemaTypes.Boolean,
+    achievements: {
+        array: SchemaTypes.Array,
+        data: {
+            bugs: SchemaTypes.Number,
+            serversCreatedTotally: SchemaTypes.Number,
+            serversPartner: SchemaTypes.Array,
+            reports: SchemaTypes.Number,
+            totalVotes: SchemaTypes.Number,
+            initialMember: SchemaTypes.Boolean
+        }
+    },
+    serversCreated: {
+        servers: SchemaTypes.Number,
+        date: SchemaTypes.String,
+    },
+    premium: {
+        isActive: SchemaTypes.Boolean,
+        endAt: SchemaTypes.Number
+    },
+    servers: SchemaTypes.Array
+})
+export const antiRF = model('AntiRF', AntiRFSchema)
+export const Guild = model<GuildDataFirst>('Guild', guildsSchema);

@@ -24,7 +24,7 @@ export class ExtendedClient extends Client {
 
     start() {
         this.registerModules();
-        this.login(process.env.TOKEN);
+        this.login(process.env.botToken);
     }
     async importFile(filePath: string) {
         return (await import(filePath))?.default;
@@ -44,7 +44,7 @@ export class ExtendedClient extends Client {
         // Commands
         const slashCommands: ApplicationCommandDataResolvable[] = [];
         const commandFiles = await globPromise(
-            `${__dirname}/../commands/*/*{.ts,.js}`
+            `${__dirname}/../commands/interaction/*/*{.ts,.js}`
         );
         commandFiles.forEach(async (filePath) => {
             const command: CommandType = await this.importFile(filePath);
