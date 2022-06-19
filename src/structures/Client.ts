@@ -4,7 +4,8 @@ import {
     ClientEvents,
     Collection
 } from "discord.js";
-import { CommandType } from "../typings/Command";
+import { CommandType } from "../typings/command";
+import { CommandTypeMsg } from "../typings/commandMsg";
 import glob from "glob";
 import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/client";
@@ -14,6 +15,7 @@ const globPromise = promisify(glob);
 
 export class ExtendedClient extends Client {
     commands: Collection<string, CommandType> = new Collection();
+    commandsMsg: Collection<string, CommandTypeMsg> = new Collection()
 
     constructor() {
         super({ intents: 32767 });
