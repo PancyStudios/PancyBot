@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
+    "sharding": "ts-node src/shardManager.ts",
     "start": "ts-node src/index.ts",
     "dev": "ts-node-dev src/index.ts"
   },
@@ -12,10 +13,13 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.0.1",
+    "danbot-hosting": "^0.1.6",
     "discord.js": "^13.7.0",
+    "discord.js-light": "^4.8.0",
     "dotenv": "^16.0.1",
     "glob": "^8.0.3",
-    "mongoose": "^6.3.5"
+    "mongoose": "^6.3.5",
+    "ubfb": "^1.2.13"
   },
   "devDependencies": {
     "ts-node": "^10.8.0",

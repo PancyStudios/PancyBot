@@ -10,21 +10,35 @@ import glob from "glob";
 import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/client";
 import { Event } from "./Events"; 
+import { cacheManagerDatabase } from "../utils/CacheSystem/cacheManager";
 const globPromise = promisify(glob);
+
 
 
 export class ExtendedClient extends Client {
     commands: Collection<string, CommandType> = new Collection();
-    commandsMsg: Collection<string, CommandTypeMsg> = new Collection()
+    commandsMsg: Collection<string, CommandTypeMsg> = new Collection();
+    database: {
+        guild: cacheManagerDatabase 
+        users: cacheManagerDatabase
+    }
 
     constructor() {
-        super({ intents: 32767 });
+        super({ 
+            intents: 32767,
+            shards: "auto"
+        });
     }
     
 
     start() {
         this.registerModules();
         this.login(process.env.botToken);
+        
+        this.database = {
+            guild: new cacheManagerDatabase(this, 'g'),
+            users: new cacheManagerDatabase(this, 'u')
+        }
     }
     async importFile(filePath: string) {
         return (await import(filePath))?.default;
