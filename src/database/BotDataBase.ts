@@ -1,5 +1,6 @@
 import { GuildDataFirst } from "./typings/Security";
 import { Schema, model, SchemaTypes } from 'mongoose'
+import { UserData } from "./typings/User";
 
 
 const guildsSchema = new Schema({
@@ -203,5 +204,5 @@ const AntiRFSchema = new Schema({
     },
     servers: SchemaTypes.Array
 })
-export const antiRF = model('AntiRF', AntiRFSchema)
+export const antiRF = model<UserData>('AntiRF', AntiRFSchema)
 export const Guild = model<GuildDataFirst>('Guild', guildsSchema);

@@ -1,43 +1,43 @@
 export interface GuildDataFirst {
     // SERVER ID
-    id: String
-    ownerId: String
+    id: string
+    ownerId: string
 
     // PROTECCIÓN
     protection: {
         antiraid: {
-            enable: Boolean
-            amount: Number
+            enable: boolean
+            amount: number
             saveBotsEntrities: {
-                authorOfEntry: String
-                _bot: String
+                authorOfEntry: string
+                _bot: string
             }
         }
         antibots: {
-            enable: Boolean
-            _type: String
+            enable: boolean
+            _type: string
         }
         antitokens: {
-            enable: Boolean
+            enable: boolean
             usersEntrities: Array<any>
-            entritiesCount: Number
+            entritiesCount: number
         }
         antijoins: {
-            enable: Boolean
+            enable: boolean
             rememberEntrities: Array<any>
         }
         markMalicious: {
-            enable: Boolean
-            _type: String
+            enable: boolean
+            _type: string
             rememberEntrities: Array<any>
         }
-        warnEntry: Boolean
+        warnEntry: boolean
         kickMalicious: {
-            enable: Boolean
+            enable: boolean
             rememberEntrities: Array<any>
         }
         ownSystem: {
-            enable: Boolean
+            enable: boolean
             events: {
                 messageCreate: Array<any>
                 messageDelete: Array<any>
@@ -66,57 +66,57 @@ export interface GuildDataFirst {
             }
         }
         verification: {
-            enable: Boolean
-            _type: String
-            channel: String
-            role: String
+            enable: boolean
+            _type: string
+            channel: string
+            role: string
         }
         cannotEnterTwice: {
-            enable: Boolean
+            enable: boolean
             users: Array<any>
         }
         purgeWebhooksAttacks: {
-            enable: Boolean
-            amount: Number
-            rememberOwners: String
+            enable: boolean
+            amount: number
+            rememberOwners: string
         }
         intelligentSOS: {
-            enable: Boolean
-            cooldown: Boolean
+            enable: boolean
+            cooldown: boolean
         }
-        intelligentAntiflood: Boolean
-        antiflood: Boolean
+        intelligentAntiflood: boolean
+        antiflood: boolean
         bloqEntritiesByName: {
-            enable: Boolean
+            enable: boolean
             names: Array<any>
         }
         bloqNewCreatedUsers: {
-            time: String
+            time: string
         }
         raidmode: {
-            enable: Boolean
-            timeToDisable: String
-            password: String
-            activedDate: Number
+            enable: boolean
+            timeToDisable: string
+            password: string
+            activedDate: number
         }
     }
 
     // MODERACIÓN
     moderation: {
         dataModeration: {
-            muterole: String
+            muterole: string
             forceReasons: Array<any>
             timers: Array<any>
             badwords: Array<any>
             events: {
-                manyPings: Boolean
-                capitalLetters: Boolean
-                manyEmojis: Boolean
-                manyWords: Boolean
-                linkDetect: Boolean
-                ghostping: Boolean
-                nsfwFilter: Boolean
-                iploggerFilter: Boolean
+                manyPings: boolean
+                capitalLetters: boolean
+                manyEmojis: boolean
+                manyWords: boolean
+                linkDetect: boolean
+                ghostping: boolean
+                nsfwFilter: boolean
+                iploggerFilter: boolean
             }
             snipes: {
                 editeds: Array<any>
@@ -124,49 +124,49 @@ export interface GuildDataFirst {
             }
         }
         automoderator: {
-            enable: Boolean
+            enable: boolean
             actions: {
                 warns: Array<any>
                 muteTime: Array<any>
-                action: String
+                action: string
                 linksToIgnore: Array<any>
-                floodDetect: Number
-                manyEmojis: Number
-                manyPings: Number
-                manyWords: Number
+                floodDetect: number
+                manyEmojis: number
+                manyPings: number
+                manyWords: number
             }
             events: {
-                badwordDetect: Boolean
-                floodDetect: Boolean
-                manyPings: Boolean
-                capitalLetters: Boolean
-                manyEmojis: Boolean
-                manyWords: Boolean
-                linkDetect: Boolean
-                ghostping: Boolean
-                nsfwFilter: Boolean
-                iploggerFilter: Boolean
+                badwordDetect: boolean
+                floodDetect: boolean
+                manyPings: boolean
+                capitalLetters: boolean
+                manyEmojis: boolean
+                manyWords: boolean
+                linkDetect: boolean
+                ghostping: boolean
+                nsfwFilter: boolean
+                iploggerFilter: boolean
             }
         }
     }
 
     // CONFIGURACIÓN
     configuration: {
-        _version: String
-        prefix: String
+        _version: string
+        prefix: string
         whitelist: Array<any>
         logs: Array<any>
-        language: String
+        language: string
         ignoreChannels: Array<any>
         password: {
-            enable: Boolean
-            _password: String
+            enable: boolean
+            _password: string
             usersWithAcces: Array<any>
         }
         subData: {
-            showDetailsInCmdsCommand: String
-            pingMessage: String
-            dontRepeatTheAutomoderatorAction: Boolean
+            showDetailsInCmdsCommand: string
+            pingMessage: string
+            dontRepeatTheAutomoderatorAction: boolean
         }
     }
 }
