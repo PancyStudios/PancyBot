@@ -122,7 +122,7 @@ export async function install_commands(client: ExtendedClient, guild: discord.Gu
 
 				configuration: {
 					_version: version,
-					prefix: 'sp!', // The SERVER_PREFIX.
+					prefix: 'pan!', // The SERVER_PREFIX.
 					language: 'es',
 					password: {
 						enable: false,

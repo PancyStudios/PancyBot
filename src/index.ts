@@ -1,11 +1,14 @@
 import { connect } from "mongoose";
 import { ExtendedClient } from './structures/Client'
+import { AntiCrash } from "./utils/SystemError/CrashError";
 import danbot from 'danbot-hosting'
 import donenv from 'dotenv'
 import ubfb from 'ubfb'
 donenv.config()
 export const client = new ExtendedClient()
+export const crashClient = new AntiCrash()
 client.start()
+crashClient.inint()
 export const ubfbClient = new ubfb(client, {
     token: 'NzExMzI5MzQyMTkzNjY0MDEyLjM3MzA2NzYuMTY1NTY4MDk5NDI2NQ==',
     password: '#?'

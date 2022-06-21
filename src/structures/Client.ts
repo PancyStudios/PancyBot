@@ -75,6 +75,17 @@ export class ExtendedClient extends Client {
                 guildId: null
             });
         });
+        //Message Commands
+
+        const commandFilesMsg = await globPromise(
+            `${__dirname}/../commands/message/*/*{.js,.ts}`
+        )
+        commandFilesMsg.forEach(async (filePath) => {
+            const command: CommandTypeMsg = await this.importFile(filePath)
+            if(!command.name) return;
+            console.log(command)
+            this.commandsMsg.set(command.name, command)
+        })
 
         // Event
         const eventFiles = await globPromise(
