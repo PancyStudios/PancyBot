@@ -5,6 +5,7 @@ import { fecthUsersDataBase } from "../../utils/CacheSystem/functions";
 import { Message } from "discord.js";
 import { GuildDataFirst } from "../../database/typings/Security";
 import { antiRF } from "../../database/BotDataBase";
+import { botStaff } from '../../utils/variables.json'
 
 export default new Event('messageCreate', async msg => {
     const data = await antiRF.findOne({ user: msg.author.id })
@@ -39,10 +40,30 @@ export default new Event('messageCreate', async msg => {
     if (cmd.length == 0) return;
 
     const command = client.commandsMsg.get(cmd)
-    command.run({
-      args,
-      client,
-      message: msg as Message,
-      _guild: _guild
-    })
-})
+    if(command) {
+
+      let userPermissions = command.userPermissions;
+      let botPermissions = command.botPermissions;
+      if(!msg.member.permissions.has(userPermissions || [])) return msg.reply(`No tienes permisos para ejecutar este comando.\n Uno de estos permisos puede faltar: \`${typeof userPermissions === 'string' ? userPermissions : userPermissions.join(', ')}\``)
+      if(!msg.guild.me.permissions.has(botPermissions || [])) return msg.reply(`No tengo permisos para ejecutar este comando.\n Uno de estos permisos puede faltar: \`${typeof botPermissions === 'string' ? botPermissions : botPermissions.join(', ')}\``)
+      if(command.isDev) {
+        if(msg.author.id !== botStaff.ownerBot) return msg.reply('Comando solo de desarrollador')
+        command.run({
+          args,
+          client,
+          message: msg as Message,
+          _guild: _guild
+        })
+      } else {
+        command.run({
+          args,
+          client,
+          message: msg as Message,
+          _guild: _guild
+        })
+      }
+    } else {
+      msg.reply('No existe el comando:' + cmd)
+    }
+  }
+)

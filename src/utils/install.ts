@@ -137,8 +137,9 @@ export async function install_commands(client: ExtendedClient, guild: discord.Gu
 				},
 			});
 			newGuild.save();
-
-			return newGuild;
+			console.log('Guild Instalada')
+		} else {
+			console.log('Guild ya instalada')
 		}
 
 		let user = (await antiRF.findOne({ user: guild.ownerId }) as any);
@@ -171,12 +172,14 @@ export async function install_commands(client: ExtendedClient, guild: discord.Gu
 				amount: 0
 			});
 			user.save();
+			console.log('Usuario creado')
 		}else{
 			if(!user.servers.includes(guild.id)) {
 				user.servers.push(guild.id);
 				user.save();
+				console.log('Usuario actualizado')
 			}
 		}
-	} catch (error) {}
+	} catch (error) {console.error(error)}
 }
 

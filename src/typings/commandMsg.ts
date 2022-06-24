@@ -30,5 +30,6 @@ export type CommandTypeMsg = {
     use: string;
     userPermissions?: PermissionResolvable[];
     botPermissions?: PermissionResolvable[];
+    isDev?: boolean
     run: RunFunction;
 } & ChatInputApplicationCommandData;

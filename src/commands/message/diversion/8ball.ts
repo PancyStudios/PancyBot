@@ -6,7 +6,7 @@ export default new Command({
     use: '[Pregunta]',
     category: __dirname,
 
-    async run ({ message, args }) {
+    async run({ message, args }) {
         const responses = ['']
     }
 })
