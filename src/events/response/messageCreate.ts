@@ -4,18 +4,19 @@ import { fecthDataBase } from "../../utils/CacheSystem/functions";
 import { fecthUsersDataBase } from "../../utils/CacheSystem/functions";
 import { Message } from "discord.js";
 import { GuildDataFirst } from "../../database/typings/Security";
+import { antiRF } from "../../database/BotDataBase";
 
 export default new Event('messageCreate', async msg => {
+    const data = await antiRF.findOne({ user: msg.author.id })
     const {guild, author} = msg
 
-    if(!guild) return;
-    if(!guild.available) return;
+    if(!guild) return console.log('No is guild');
+    if(!guild.available) return console.log('Guild unavilable');
 
     let _guild = await fecthDataBase(client, guild, false) as GuildDataFirst;
-    if(!_guild) return;
+    if(!_guild) return console.log('No cache');
 
     let _user = await fecthUsersDataBase(client, author, false)
-    if(!_user) return;
 
     let prefix = _guild.configuration.prefix
     const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
