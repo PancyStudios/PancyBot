@@ -1,12 +1,14 @@
 import { connect } from "mongoose";
 import { ExtendedClient } from './structures/Client'
 import { AntiCrash } from "./utils/SystemError/CrashError";
+import { PancyBotUtils } from "./utils/SystemBot/BaseUtilsBot";
 import danbot from 'danbot-hosting'
 import donenv from 'dotenv'
 import ubfb from 'ubfb'
 donenv.config()
 export const client = new ExtendedClient()
 export const crashClient = new AntiCrash()
+export const utils = new PancyBotUtils()
 client.start()
 crashClient.inint()
 export const ubfbClient = new ubfb(client, {

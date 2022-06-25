@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@top-gg/sdk": "^3.1.3",
+    "anti-ip-logger": "^1.0.1",
     "body-parser": "^1.20.0",
     "chalk": "^5.0.1",
     "danbot-hosting": "^0.1.6",

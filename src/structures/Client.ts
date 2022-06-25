@@ -10,7 +10,7 @@ import glob from "glob";
 import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/client";
 import { Event } from "./Events"; 
-import { cacheManagerDatabase } from "../utils/CacheSystem/cacheManager";
+import { cacheManager, cacheManagerDatabase } from "../utils/CacheSystem/cacheManager";
 const globPromise = promisify(glob);
 
 
@@ -21,6 +21,9 @@ export class ExtendedClient extends Client {
     database: {
         guild: cacheManagerDatabase 
         users: cacheManagerDatabase
+    }
+    super: {
+        cache: cacheManager
     }
 
     constructor() {
@@ -38,6 +41,10 @@ export class ExtendedClient extends Client {
         this.database = {
             guild: new cacheManagerDatabase(this, 'g'),
             users: new cacheManagerDatabase(this, 'u')
+        }
+
+        this.super = {
+            cache: new cacheManager()
         }
     }
     async importFile(filePath: string) {
@@ -60,6 +67,7 @@ export class ExtendedClient extends Client {
         const commandFiles = await globPromise(
             `${__dirname}/../commands/interaction/*/*{.ts,.js}`
         );
+       
         commandFiles.forEach(async (filePath) => {
             const command: CommandType = await this.importFile(filePath);
             if (!command.name) return;
