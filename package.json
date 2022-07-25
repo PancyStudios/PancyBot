@@ -21,7 +21,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "glob": "^8.0.3",
-    "moment": "^2.29.3",
+    "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^6.3.5",
     "ms": "^2.1.3",
