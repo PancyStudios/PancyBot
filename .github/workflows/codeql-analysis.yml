@@ -71,15 +71,3 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       
-    - name: Upload Artifact
-      uses: github/ncipollo/release-action@v1.10.0
-      with:
-        draft: false
-        name: PancyBot
-        tag: v0.0.3
-        token: ${{ secrets.GITHUB_TOKEN }}
-        body: ""
-        commit: ${{ github.sha }}
-        allowUpdates: true
-        removeArtifacts: true
-        replacesArtifacts: true
