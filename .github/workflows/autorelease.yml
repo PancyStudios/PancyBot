@@ -1,0 +1,25 @@
+# For most projects, this workflow file will not need changing; you simply need
+# to commit it to your repository.
+#
+# You may wish to alter this file to override the set of languages analyzed,
+# or to provide custom queries or build logic.
+
+name: "AutoReleaseBot"
+
+on: 
+  push:
+    branches: [ "release" ]
+  
+jobs: 
+  - name: Upload Artifact
+    uses: github/ncipollo/release-action@v1.10.0
+    with:
+      draft: false
+      name: PancyBot
+      tag: v0.0.3
+      token: ${{ secrets.GITHUB_TOKEN }}
+      body: ""
+      commit: ${{ github.sha }}
+      allowUpdates: true
+      removeArtifacts: true
+      replacesArtifacts: true
