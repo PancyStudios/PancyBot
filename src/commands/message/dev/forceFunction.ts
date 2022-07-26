@@ -1,5 +1,8 @@
 import { Command } from "../../../structures/CommandMsg";
 import { install_commands } from "../../../utils/install";
+import { curly } from 'node-libcurl' 
+import { version } from '../../../../package.json'
+import { MessageEmbed } from "discord.js";
 
 export default new Command({
     name: 'force',
@@ -18,7 +21,25 @@ export default new Command({
             .finally(() => {
                 message.reply('Se completo la funcion')
             })
-        } else {
+        } else if(args[0] === 'webhookPost') {
+            const Embed = new MessageEmbed()
+            .setDescription('Tested')
+
+            const {statusCode} = await curly.post(process.env.errorWebhook, {
+                postFields: JSON.stringify({
+                    username: `PancyBot ${version} | ForceFunctions`,
+                    embeds: [
+                        Embed
+                    ]
+                }),
+                httpHeader: [
+                    'Content-Type: application/json',
+                ],
+            });
+
+            message.reply(`Status Code: ${statusCode}`) // Status Code: 200
+        }
+        else {
             message.reply('No existe la funcion')
         }
     }

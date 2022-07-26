@@ -19,7 +19,7 @@ import { ExtendedClient } from "../structures/Client";
 interface RunOptions {
     client: ExtendedClient;
     message: Message;
-    args: String[] | String[0];
+    args: String[] | String[0] | Array<string>;
     _guild: GuildDataFirst;
 }
 
