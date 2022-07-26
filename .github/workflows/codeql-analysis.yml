@@ -72,7 +72,7 @@ jobs:
       uses: github/codeql-action/analyze@v2
       
     - name: Upload Artifact
-      uses: ncipollo/release-action@v1.10.0
+      uses: github/ncipollo/release-action@v1.10.0
       with:
         draft: false
         name: PancyBot
