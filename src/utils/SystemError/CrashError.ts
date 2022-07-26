@@ -1,10 +1,12 @@
 import { writeFileSync, existsSync, mkdirSync } from 'fs'
-
+import { curly } from 'node-libcurl' 
+import { MessageEmbed } from 'discord.js';
+import { version } from '../../../package.json'
 export class AntiCrash {
     constructor() {}
 
     inint() {
-        process.on('unhandledRejection', (reason, p) => {
+        process.on('unhandledRejection', async (reason, p) => {
             console.log(' [antiCrash] :: Unhandled Rejection/Catch');
             console.log(reason, p);
             const data = `${reason} ${p}`
@@ -13,6 +15,26 @@ export class AntiCrash {
             }
             
             writeFileSync(""+process.cwd()+"/ErrorLogs/unhandledRejection_"+Date.now()+".log", data);
+
+            const Embed = new MessageEmbed()
+            .setAuthor({ name: 'CrashReport'})
+            .setDescription(`CrashError: ${reason} ${p}`)
+            .setColor('RED')
+            .setFooter({ text: `Pancybot v${version}` })
+
+            const {statusCode} = await curly.post(process.env.errorWebhook, {
+                postFields: JSON.stringify({
+                    username: `PancyBot ${version} | CrashError`,
+                    embeds: [
+                        Embed
+                    ]
+                }),
+                httpHeader: [
+                    'Content-Type: application/json',
+                ],
+            });
+
+            console.warn(`[AntiCrash] :: Sent CrashError to Webhook, Status Code: ${statusCode}`);
         });
         process.on("uncaughtException", (err, origin) => {
             console.log(' [antiCrash] :: Uncaught Exception/Catch');
@@ -44,5 +66,5 @@ export class AntiCrash {
     
             writeFileSync(""+process.cwd()+"/ErrorLogs/multipleResolves_"+Date.now()+".log", data);
         });
-}
+    }
 }

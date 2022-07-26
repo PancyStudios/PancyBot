@@ -5,6 +5,7 @@ declare global {
             mongodbUrl: string;
             topggPassword: string;
             ubfbToken: string;
+            errorWebhook: string;
             enviroment: "dev" | "prod" | "debug";
         }
     }

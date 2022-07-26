@@ -18,10 +18,6 @@ export const ubfbClient = new ubfb(client, {
 
 export const danbotUser = new danbot.Client('danbot-U&o8QDNj6L$%QWlSuj6TE1Mr&uVmKLOfFi5meGxO', client)
 
-
-
-
-
 console.log(process.env.botToken)
 
 const database = connect(process.env.mongodbUrl, {
