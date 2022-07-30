@@ -11,15 +11,20 @@ on:
     branches: [ "release" ]
   
 jobs: 
-  - name: Upload Artifact
-    uses: github/ncipollo/release-action@v1.10.0
-    with:
-      draft: false
-      name: PancyBot
-      tag: v0.0.3
-      token: ${{ secrets.GITHUB_TOKEN }}
-      body: ""
-      commit: ${{ github.sha }}
-      allowUpdates: true
-      removeArtifacts: true
-      replacesArtifacts: true
+  analyne:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Upload Artifact
+      uses: github/ncipollo/release-action@v1.10.0
+      with:
+        draft: false
+        name: PancyBot
+        tag: v0.0.3
+        token: ${{ secrets.GITHUB_TOKEN }}
+        body: ""
+        commit: ${{ github.sha }}
+        allowUpdates: true
+        removeArtifacts: true
+        replacesArtifacts: true
