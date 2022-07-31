@@ -7,7 +7,7 @@ export default new Command({
     name: "dog",
     description: "Muestra una imagen de un perro",
     use: "",
-    category: __dirname,
+    category: "diversion",
     botPermissions: ["EMBED_LINKS"],
     isDev: false,
 

@@ -6,7 +6,7 @@ export default new Command({
     name: '8ball',
     description: "Preguntale algo al bot",
     use: '[Pregunta]',
-    category: __dirname,
+    category: "diversion",
 
     async run({ message, args, _guild }) {
         const responses = ['Si', 'No', 'Tal vez', 'Probablemente', 'Probablemente no', 'No se', 'Tu que piensas?']

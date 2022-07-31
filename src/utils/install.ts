@@ -1,5 +1,5 @@
 import { Guild, antiRF } from '../database/BotDataBase'
-import { version } from '../../package.json'
+import { version, privateBot } from '../../package.json'
 import discord from 'discord.js'
 import { ExtendedClient } from '../structures/Client';
 
@@ -10,7 +10,8 @@ export async function install_commands(client: ExtendedClient, guild: discord.Gu
 		if(!_guild) {
 			let newGuild = new Guild({
 				id: guild.id, // Server ID.
-				ownerId: guild.ownerId, // The owner ID.
+				ownerId: guild.ownerId, // The owner ID
+				privateGuild: privateBot, // If the guild is private or not.
 
 				protection: {
 					antiraid: {

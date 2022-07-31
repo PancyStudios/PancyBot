@@ -7,7 +7,7 @@ import("moment-duration-format");
 export default new Command({
   name: "info",
   description: "Command info",
-  category: __dirname,
+  category: "util",
   use: "",
 
   async run({ message, args, client }) {

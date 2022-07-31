@@ -6,7 +6,7 @@ export default new Command({
     name: "ascii",
     description: "Muestra un texto ASCII",
     use: "[Texto]",
-    category: __dirname,
+    category: "diversion",
     botPermissions: ["EMBED_LINKS"],
     isDev: false,
 

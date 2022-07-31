@@ -5,12 +5,11 @@ import { updateDataBase } from "../../../utils/CacheSystem/functions";
 export default new Command({
     name: "setprefix",
     description: "Set the prefix of the command",
-    category: __dirname,
+    category: "config",
     use: '<NewPrefix>',
     userPermissions: ['MANAGE_GUILD'],
 
     async run({ message, args, client, _guild }) {
-        
         if(!message.member.permissions.has('ADMINISTRATOR'))return message.reply({ content: 'Necesitas permisos de __Administrador__.'});
         if(!args[0])return message.reply('Especifica prefix');
         if(args[0].length > 5)return message.reply('¡Ese prefijo es muy largo!');

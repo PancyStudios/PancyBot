@@ -4,7 +4,6 @@ import { Timers } from "../../../database/Timers";
 import { utils } from "../../..";
 import { MessageEmbed, MessageActionRow, MessageButton } from "discord.js";
 import { updateDataBase } from "../../../utils/CacheSystem/functions";
-import { commands as es } from '../../../LANG/es.json'
 
 
 export default new Command({
@@ -16,7 +15,7 @@ export default new Command({
     botPermissions: ['MANAGE_ROLES'],
     
     run: async ({ message, args, client, _guild }) => {
-        let reason = (args.slice(1) as Array<string>).join(" ");
+        let reason = (args.slice(1) as string[]).join(" ");
         let userMention = message.mentions.members.first();
         if(!userMention)return message.reply(await utils.dataRequired('No se menciono a nadie.\n\n' + _guild.configuration.prefix + 'warn <userMention> [reason]'));
         if(_guild.moderation.dataModeration.forceReasons.length > 0) {
@@ -28,7 +27,7 @@ export default new Command({
         let userWarns = await Warns.findOne({ guildId: message.guild.id, userId: userMention.id });
         if(userWarns) {
             userWarns.warns.push({
-                reason: reason.split(`${userMention.id}> `)[1],
+                reason: reason,
                 moderator: message.author.id,
             });
             userWarns.save();
@@ -37,7 +36,7 @@ export default new Command({
                 guildId: message.guild.id,
                 userId: userMention.id,
                 warns: [{
-                    reason: reason.split(`${userMention.id}> `)[1],
+                    reason: reason,
                     moderator: message.author.id
                 }],
                 subCount: 0

@@ -4,7 +4,7 @@ import { MessageEmbed } from "discord.js";
 export default new Command({
     name: "prefix",
     description: "Muestra el prefijo actual",
-    category: __dirname,
+    category: "util",
     use: "",
     isDev: false,
     botPermissions: ["EMBED_LINKS"],

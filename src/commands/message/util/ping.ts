@@ -7,7 +7,7 @@ import ms from 'ms'
 export default new Command({
     name: 'ping',
     description: 'Command info',
-    category: __dirname,
+    category: "util",
     use: '',
 
     async run ({ message, args, client })  {    

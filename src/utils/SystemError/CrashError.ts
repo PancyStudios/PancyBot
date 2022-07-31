@@ -67,4 +67,6 @@ export class AntiCrash {
             writeFileSync(""+process.cwd()+"/ErrorLogs/multipleResolves_"+Date.now()+".log", data);
         });
     }
+
+    report
 }

@@ -26,6 +26,7 @@ interface RunOptions {
 type RunFunction = (options: RunOptions) => any;
 
 export type CommandTypeMsg = {
+    aliases?: string[]
     category: string;
     use: string;
     userPermissions?: PermissionResolvable[];

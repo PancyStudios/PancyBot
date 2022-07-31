@@ -1,10 +1,11 @@
 
 import { Schema, SchemaTypes, model } from "mongoose";
+import { Warns } from "./typings/Warns";
 
 interface WarnsInterface {
     guildId: string;
     userId: string;
-    warns: Array<object>;
+    warns: Array<Warns>;
     subCount: number;
 }
 
