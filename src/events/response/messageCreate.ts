@@ -2,7 +2,7 @@ import { Event } from "../../structures/Events";
 import { client } from "../..";
 import { fecthDataBase, updateDataBase } from "../../utils/CacheSystem/functions";
 import { fecthUsersDataBase, updateUsersDataBase } from "../../utils/CacheSystem/functions";
-import { utils, ubfbClient } from "../..";
+import { utils } from "../..";
 import { Message, TextChannel } from "discord.js";
 import { GuildDataFirst } from "../../database/typings/Security";
 import { antiRF } from "../../database/BotDataBase";
@@ -148,39 +148,6 @@ export default new Event('messageCreate', async msg => {
                         });
                     }
                 }
-            }
-
-            // nsfwFilter:
-            if(_guild.moderation.dataModeration.events.nsfwFilter == true && msg.attachments.size >= 1) {
-                msg.attachments.forEach(async x => {
-                    if(x.proxyURL.endsWith('png') || x.proxyURL.endsWith('gif') || x.proxyURL.endsWith('jpeg') || x.proxyURL.endsWith('jpg') || x.proxyURL.endsWith('bmp')) {
-                        ubfbClient.post({
-                            token: await (ubfbClient.client().then(cl => cl.token())),
-                            event: true,
-                            eventToEmit: 'nsfwFilterP',
-                            name: 'nsfwFilterReq',
-                            url: x.proxyURL,
-                            authorId: `${msg.author.id}`
-                        });
-        
-                        setTimeout(async () => {
-                            let response = await utils.getResponseAndDelete(msg.author.id);
-                            if((response.predictions[0][0] == 'Porn' && response.predictions[0][1] >= 0.3) || (response.predictions[0][0] == 'Hentai' && response.predictions[0][1] >= 0.3)) {
-                                msg.reply({ content: '¡No puedes enviar ese tipo de contenido!' }).then(async x => {
-                                    setTimeout(() => {
-                                        x.delete();
-                                        msg.delete().catch(err => {});
-                                    }, 2000);
-                                    if(_guild.moderation.automoderator.enable == true && _guild.moderation.automoderator.events.nsfwFilter == true) {
-                                        await utils.automoderator(client, _guild, msg, 'Publicar contenido NSFW.');
-                                    }
-                                });
-                            }
-                        }, 4000);
-                    }else{
-                        msg.reply('`El filtro de NSFW está activado, solo se admiten formatos PNG, GIF, JPG, BMP.`').then(() => msg.delete());
-                    }
-                });
             }
 
             // iploggerFilter

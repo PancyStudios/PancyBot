@@ -1,8 +1,8 @@
 Arguments: 
-  /opt/nodejs/16.14.2/bin/node /home/codespace/.yarn/bin/yarn.js add figle
+  /opt/nodejs/16.14.2/bin/node /home/codespace/.yarn/bin/yarn.js add @types/ubfb -D
 
 PATH: 
-  /home/codespace/.yarn/bin:/home/codespace/.config/yarn/global/node_modules/.bin:/home/codespace/.rbenv/shims:/vscode/bin/linux-x64/13ba7bb446a638d37ebccb1a7d74e31c32bb9790-insider/bin/remote-cli:/home/codespace/.local/bin:/home/codespace/.yarn/bin:/home/codespace/.config/yarn/global/node_modules/.bin:/home/codespace/.rbenv/shims:/home/codespace/.nvm/current/bin:/home/codespace/.npm-global/bin:/home/codespace/.python/current/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/codespace/.dotnet:/home/codespace/.dotnet/tools:/usr/local/sdkman/bin:/usr/local/sdkman/candidates/gradle/current/bin:/usr/local/sdkman/candidates/java/current/bin:/opt/maven/lts:/usr/local/go/bin:/go/bin:/usr/local/py-utils/bin:/opt/conda/condabin:/home/codespace/.java/current/bin:/home/codespace/.nodejs/current/bin:/home/codespace/.php/current/bin:/home/codespace/.ruby/current/bin:/home/codespace/.maven/current/bin:/home/codespace/.hugo/current/bin:/home/codespace/.local/bin:/opt/oryx:/opt/nodejs/lts/bin:/opt/dotnet/lts:/opt/python/latest/bin:/opt/php/lts/bin:/opt/php-composer:/opt/yarn/stable/bin:/opt/hugo/lts::/opt/java/lts/bin:/opt/maven/lts/bin:/opt/ruby/lts/bin:/usr/local/rvm/bin
+  /home/codespace/.yarn/bin:/home/codespace/.config/yarn/global/node_modules/.bin:/home/codespace/.rbenv/shims:/vscode/bin/linux-x64/28f604dec81b609dd7e69362585f7a99d4c48f88-insider/bin/remote-cli:/home/codespace/.local/bin:/home/codespace/.yarn/bin:/home/codespace/.config/yarn/global/node_modules/.bin:/home/codespace/.rbenv/shims:/home/codespace/.nvm/current/bin:/home/codespace/.npm-global/bin:/home/codespace/.python/current/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/codespace/.dotnet:/home/codespace/.dotnet/tools:/usr/local/sdkman/bin:/usr/local/sdkman/candidates/gradle/current/bin:/usr/local/sdkman/candidates/java/current/bin:/opt/maven/lts:/usr/local/go/bin:/go/bin:/usr/local/py-utils/bin:/opt/conda/condabin:/home/codespace/.java/current/bin:/home/codespace/.nodejs/current/bin:/home/codespace/.php/current/bin:/home/codespace/.ruby/current/bin:/home/codespace/.maven/current/bin:/home/codespace/.hugo/current/bin:/home/codespace/.local/bin:/opt/oryx:/opt/nodejs/lts/bin:/opt/dotnet/lts:/opt/python/latest/bin:/opt/php/lts/bin:/opt/php-composer:/opt/yarn/stable/bin:/opt/hugo/lts::/opt/java/lts/bin:/opt/maven/lts/bin:/opt/ruby/lts/bin:/usr/local/rvm/bin
 
 Yarn version: 
   1.22.19
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/figle: Not found
+  Error: https://registry.yarnpkg.com/@types%2fubfb: Not found
       at Request.params.callback [as _callback] (/home/codespace/.yarn/lib/cli.js:66145:18)
       at Request.self.callback (/home/codespace/.yarn/lib/cli.js:140890:22)
       at Request.emit (node:events:526:28)
@@ -29,9 +29,10 @@ Trace:
 npm manifest: 
   {
     "name": "pancybot",
-    "version": "alpha_0.0.2",
+    "version": "alpha_0.1.0",
     "description": "",
     "main": "src/index.ts",
+    "privateBot": true,
     "scripts": {
       "start": "ts-node src/index.ts",
       "dev": "ts-node-dev src/index.ts"
@@ -48,6 +49,7 @@ npm manifest:
       "discord.js": "^13.7.0",
       "dotenv": "^16.0.1",
       "express": "^4.18.1",
+      "figlet": "^1.5.2",
       "glob": "^8.0.3",
       "moment": "^2.29.3",
       "moment-duration-format": "^2.3.2",
@@ -55,11 +57,14 @@ npm manifest:
       "ms": "^2.1.3",
       "nekos.life": "^3.0.0",
       "node-libcurl": "^2.3.4",
-      "ubfb": "^1.2.13"
+      "ubfb": "^2.1.2",
+      "uglify-js": "^3.16.3"
     },
     "devDependencies": {
       "@types/express": "^4.17.13",
+      "@types/figlet": "^1.5.4",
       "@types/moment-duration-format": "^2.2.3",
+      "@types/uglify-js": "^3.16.0",
       "ts-node": "^10.8.0",
       "ts-node-dev": "^2.0.0",
       "typescript": "^4.7.4"
@@ -208,6 +213,11 @@ Lockfile:
       "@types/qs" "*"
       "@types/serve-static" "*"
   
+  "@types/figlet@^1.5.4":
+    version "1.5.4"
+    resolved "https://registry.yarnpkg.com/@types/figlet/-/figlet-1.5.4.tgz#54a426d63e921a9bca44102c5b1b1f206fa56d93"
+    integrity sha512-cskPTju7glYgzvkJy/hftqw7Fen3fsd0yrPOqcbBLJu+YdDQuA438akS1g+2XVKGzsQOnXGV2I9ePv6xUBnKMQ==
+  
   "@types/mime@^1":
     version "1.3.2"
     resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
@@ -260,6 +270,13 @@ Lockfile:
     version "0.0.30"
     resolved "https://registry.npmjs.org/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz"
     integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
+  
+  "@types/uglify-js@^3.16.0":
+    version "3.16.0"
+    resolved "https://registry.yarnpkg.com/@types/uglify-js/-/uglify-js-3.16.0.tgz#2cf74a0e6ebb6cd54c0d48e509d5bd91160a9602"
+    integrity sha512-0yeUr92L3r0GLRnBOvtYK1v2SjqMIqQDHMl7GLb+l2L8+6LSFWEEWEIgVsPdMn5ImLM8qzWT8xFPtQYpp8co0g==
+    dependencies:
+      source-map "^0.6.1"
   
   "@types/webidl-conversions@*":
     version "6.1.1"
@@ -841,6 +858,11 @@ Lockfile:
       node-domexception "^1.0.0"
       web-streams-polyfill "^3.0.3"
   
+  figlet@^1.5.2:
+    version "1.5.2"
+    resolved "https://registry.yarnpkg.com/figlet/-/figlet-1.5.2.tgz#dda34ff233c9a48e36fcff6741aeb5bafe49b634"
+    integrity sha512-WOn21V8AhyE1QqVfPIVxe3tupJacq1xGkPTB4iagT6o+P2cAgEOOwIxMftr4+ZCTI6d551ij9j61DFr0nsP2uQ==
+  
   fill-range@^7.0.1:
     version "7.0.1"
     resolved "https://registry.npmjs.org/fill-range/-/fill-range-7.0.1.tgz"
@@ -1089,6 +1111,11 @@ Lockfile:
     version "2.0.4"
     resolved "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz"
     integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
+  
+  inherits@2.0.3:
+    version "2.0.3"
+    resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
+    integrity sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==
   
   ip@^1.1.5:
     version "1.1.8"
@@ -1514,6 +1541,14 @@ Lockfile:
     resolved "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-0.1.7.tgz"
     integrity sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==
   
+  path@^0.12.7:
+    version "0.12.7"
+    resolved "https://registry.yarnpkg.com/path/-/path-0.12.7.tgz#d4dc2a506c4ce2197eb481ebfcd5b36c0140b10f"
+    integrity sha512-aXXC6s+1w7otVF9UletFkFcDsJeO7lSZBPUQhtb5O0xJe8LtYhj/GxldoL09bBj9+ZmE2hNoHqQSFMN5fikh4Q==
+    dependencies:
+      process "^0.11.1"
+      util "^0.10.3"
+  
   performance-now@^2.1.0:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
@@ -1528,6 +1563,11 @@ Lockfile:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
     integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
+  
+  process@^0.11.1:
+    version "0.11.10"
+    resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
+    integrity sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==
   
   proxy-addr@~2.0.7:
     version "2.0.7"
@@ -1756,7 +1796,7 @@ Lockfile:
       buffer-from "^1.0.0"
       source-map "^0.6.0"
   
-  source-map@^0.6.0:
+  source-map@^0.6.0, source-map@^0.6.1:
     version "0.6.1"
     resolved "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz"
     integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
@@ -1990,20 +2030,26 @@ Lockfile:
   
   typescript@^4.7.4:
     version "4.7.4"
-    resolved "https://registry.npmjs.org/typescript/-/typescript-4.7.4.tgz"
+    resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
     integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==
   
-  ubfb@^1.2.13:
-    version "1.2.13"
-    resolved "https://registry.npmjs.org/ubfb/-/ubfb-1.2.13.tgz"
-    integrity sha512-U6tjueqYVdBchpxEEU7Fwd3pt+OjeV9kuWyukfBLfI1kQCT9PXdMU+gd55UFhcNfuLEf+DHOXHd9MhZHoBmG8A==
+  ubfb@^2.1.2:
+    version "2.1.2"
+    resolved "https://registry.yarnpkg.com/ubfb/-/ubfb-2.1.2.tgz#601ecd82206072f3bfb4de0cd84263ef9a4d3e40"
+    integrity sha512-86bn36qXcXzKkMAcnhX48ulxPcK9Pnu6wrANzwSkEfBf83BSe3aX3PiVho7otNnoT16GLBSO9+/obFPUKl9rjQ==
     dependencies:
       express "^4.17.3"
       fs "^0.0.1-security"
       http "^0.0.1-security"
       ms "^2.1.3"
       node-fetch "^3.2.0"
+      path "^0.12.7"
       websocket "^1.0.34"
+  
+  uglify-js@^3.16.3:
+    version "3.16.3"
+    resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.16.3.tgz#94c7a63337ee31227a18d03b8a3041c210fd1f1d"
+    integrity sha512-uVbFqx9vvLhQg0iBaau9Z75AxWJ8tqM9AV890dIZCLApF4rTcyHwmAvLeEdYRs+BzYWu8Iw81F79ah0EfTXbaw==
   
   unpipe@1.0.0, unpipe@~1.0.0:
     version "1.0.0"
@@ -2028,6 +2074,13 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
     integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+  
+  util@^0.10.3:
+    version "0.10.4"
+    resolved "https://registry.yarnpkg.com/util/-/util-0.10.4.tgz#3aa0125bfe668a4672de58857d3ace27ecb76901"
+    integrity sha512-0Pm9hTQ3se5ll1XihRic3FDIku70C+iHUdT/W926rSgHV5QgXsYbKZN8MSC3tJtSkhuROzvsQjAaFENRXr+19A==
+    dependencies:
+      inherits "2.0.3"
   
   utils-merge@1.0.1:
     version "1.0.1"

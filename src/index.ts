@@ -11,11 +11,6 @@ export const crashClient = new AntiCrash()
 export const utils = new PancyBotUtils()
 client.start()
 crashClient.inint()
-export const ubfbClient = new ubfb(client, {
-    token: 'NzExMzI5MzQyMTkzNjY0MDEyLjM3MzA2NzYuMTY1NTY4MDk5NDI2NQ==',
-    password: '#?'
-});
-
 export const danbotUser = new danbot.Client('danbot-U&o8QDNj6L$%QWlSuj6TE1Mr&uVmKLOfFi5meGxO', client)
 
 console.log(process.env.botToken)
