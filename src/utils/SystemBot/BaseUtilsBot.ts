@@ -5,6 +5,7 @@ import { ExtendedClient } from "../../structures/Client";
 import { GuildDataFirst } from "../../database/typings/Security";
 import { warns } from "../../database/Warns";
 import { Timers } from "../../database/Timers";
+import { client } from "../.."
 const usersWithCooldown = new Map();
 const cooldown = new Map();
 const responses = new Map();
@@ -228,4 +229,8 @@ async automoderator(client, mongoose, message, sanctionReason) {
         }
     }
     
+    botIsOnline() {
+        const status = client.isReady()
+        return status
+    }
 }

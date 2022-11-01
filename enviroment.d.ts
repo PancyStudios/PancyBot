@@ -7,6 +7,8 @@ declare global {
             ubfbToken: string;
             errorWebhook: string;
             enviroment: "dev" | "prod" | "debug";
+            PORT: number;
+            PasswordApi: string;
         }
     }
 }
