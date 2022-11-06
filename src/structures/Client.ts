@@ -95,6 +95,8 @@ export class ExtendedClient extends Client {
             this.commandsMsg.set(command.name, command)
         })
 
+        
+
         // Event
         const eventFiles = await globPromise(
             `${__dirname}/../events/*/*{.ts,.js}`
