@@ -1,0 +1,1 @@
+{"version":"alpha_0.0.1","name":"pancybot","dependencies":{"chalk":{"version":"5.0.1"},"danbot-hosting":{"version":"0.1.6"},"discord.js-light":{"version":"4.8.0"},"discord.js":{"version":"13.8.0"},"dotenv":{"version":"16.0.1"},"glob":{"version":"8.0.3"},"mongoose":{"version":"6.3.5"},"ubfb":{"version":"1.2.13"}}}
