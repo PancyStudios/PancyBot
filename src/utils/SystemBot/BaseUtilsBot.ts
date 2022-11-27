@@ -104,8 +104,8 @@ async automoderator(client, mongoose, message, sanctionReason) {
             });
             mongoose.save();
             let _timers = await Timers.findOne({ });
-            if(!_timers.servers.includes(message.guild.id)) {
-                _timers.servers.push(message.guild.id);
+            if(!(_timers.servers as unknown as Array<any>).includes(message.guild.id)) {
+                (_timers.servers as unknown as Array<any>).push(message.guild.id);
                 _timers.save();
             }
             message.reply({ content: `He muteado a \`${message.author.username}\` durante \`${mongoose.moderation.automoderator.actions.muteTime[1]}\` por tener demasiadas infracciónes.` });
