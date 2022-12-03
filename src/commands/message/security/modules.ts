@@ -30,5 +30,7 @@ export default new Command({
         .addField('📏 Logs:', `Canal: \`${_guild.configuration.logs[0] ?? 'Logs desactivados.'}\`\nCanal de error: \`${_guild.configuration.logs[1] ?? 'Logs desactivados.'}\``, true)
         .addField('🔐 Raidmode:', `Estado: \`${_guild.protection.raidmode.enable ? 'Activado' : 'Desactivado'}\`\nTtd: \`${_guild.protection.raidmode.timeToDisable}\`\nContraseña: \`${_guild.protection.raidmode.password.length} caracteres\`\nDía activado: \`${_guild.protection.raidmode.activedDate}\``, true)
         .addField('🧾 Verificación:', `Estado: \`${_guild.protection.verification.enable ? 'Activado' : 'Desactivado'}\`\nTipo: \`${_guild.protection.verification._type ?? 'Tipo no establecido.'}\`\nRol: \`${_guild.protection.verification.role ?? 'Rol no establecido.'}\`\nCanal: \`${_guild.protection.verification.channel ?? 'Sin canal establecido.'}\``, true)
+
+        message.reply({ embeds: [Embed] })
     }
 })

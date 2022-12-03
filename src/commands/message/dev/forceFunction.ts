@@ -3,6 +3,7 @@ import { install_commands } from "../../../utils/install";
 import { curly } from 'node-libcurl' 
 import { version } from '../../../../package.json'
 import { MessageEmbed } from "discord.js";
+import { app } from "../../../utils/SystemServer";
 
 export default new Command({
     name: 'force',
@@ -73,7 +74,7 @@ export default new Command({
             })
 
         } else if(args[0] === "killWebServer") {
-
+            
         }
         else {
             message.reply('No existe la funcion')

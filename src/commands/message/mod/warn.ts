@@ -82,8 +82,8 @@ export default new Command({
                 });
                 updateDataBase(client, message.guild, _guild, true);
                 let _timers = await Timers.findOne({ });
-                if(!_timers.servers.includes(message.guild.id)) {
-                    _timers.servers.push(message.guild.id);
+                if(!(_timers.servers as unknown as Array<any>).includes(message.guild.id)) {
+                    (_timers.servers as unknown as Array<any>).push(message.guild.id);
                     _timers.save();
                 }
 
