@@ -3,4 +3,4 @@ node_modules/*
 ErrorLogs/*
 .github/*
 build/*
-src/structures/Client.ts
+src/structures/*
