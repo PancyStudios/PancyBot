@@ -5,7 +5,7 @@ import { PancyBotUtils } from "./utils/SystemBot/BaseUtilsBot";
 import { app } from "./utils/SystemServer";
 import danbot from 'danbot-hosting';
 import donenv from 'dotenv';
-import ubfb from 'ubfb';
+import { Client } from 'craiyon'
 
 donenv.config();
 const firstTime = Date.now();
@@ -14,6 +14,7 @@ var PORT = process.env.PORT || 3000
 export const client = new ExtendedClient()
 export const crashClient = new AntiCrash()
 export const utils = new PancyBotUtils()
+export const craiyon = new Client()
 client.start()
 crashClient.inint()
 export const danbotUser = new danbot.Client('danbot-U&o8QDNj6L$%QWlSuj6TE1Mr&uVmKLOfFi5meGxO', client)

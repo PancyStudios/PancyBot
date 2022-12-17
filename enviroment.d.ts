@@ -9,6 +9,7 @@ declare global {
             enviroment: "dev" | "prod" | "debug";
             PORT: number;
             PasswordApi: string;
+            OpenAIApi: string;
         }
     }
 }

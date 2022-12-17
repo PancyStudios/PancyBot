@@ -1,6 +1,5 @@
 import { Command } from "../../../structures/CommandMsg";
 import { updateDataBase } from "../../../utils/CacheSystem/functions";
-import Discord from "discord.js";
 
 export default new Command({
     name: "antiflood",
