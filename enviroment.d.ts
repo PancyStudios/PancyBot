@@ -10,6 +10,9 @@ declare global {
             PORT: number;
             PasswordApi: string;
             OpenAIApi: string;
+            username: string;
+            password: string;
+            imageDbUrl: string;
         }
     }
 }
