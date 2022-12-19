@@ -7,10 +7,9 @@ export default new Command({
     description: "Set the prefix of the command",
     category: "config",
     use: '<NewPrefix>',
-    userPermissions: ['MANAGE_GUILD'],
+    userPermissions: ['Administrator'],
 
     async run({ message, args, client, _guild }) {
-        if(!message.member.permissions.has('ADMINISTRATOR'))return message.reply({ content: 'Necesitas permisos de __Administrador__.'});
         if(!args[0])return message.reply('Especifica prefix');
         if(args[0].length > 5)return message.reply('¡Ese prefijo es muy largo!');
         _guild.configuration.prefix = (args[0] as string);

@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder, Colors } from "discord.js";
 import { Command } from "../../../structures/CommandMsg";
 
 export default new Command({
@@ -6,9 +6,9 @@ export default new Command({
   category: "diversion",
   use: "[piedra | papel | tijera]",
   description: `juega piedra papel o tijeras`,
-  botPermissions: ["EMBED_LINKS"],
+  botPermissions: ["EmbedLinks"],
 
-  async run({ message, args }) {
+  async run({ client, message, args }) {
     const moves = { piedra: 0, papel: 1, tijera: 2 };
 
     function wrapIndex(i, i_max) {
@@ -38,9 +38,9 @@ export default new Command({
 
     let winner = determine_win([args[0], machineInput]);
 
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle("Piedra, papel o tijera.")
-      .addFields(
+      .addFields([
         {
           name: `${message.author.username} eligió`,
           value: uppercase_first(args[0]),
@@ -51,12 +51,12 @@ export default new Command({
           value: uppercase_first(machineInput),
           inline: true,
         }
-      )
-      .setColor(message.guild.me.displayColor)
-      .setFooter(
-        "El Turbinas#09921",
-        "https://cdn.discordapp.com/avatars/337638270861049857/0ae0087039cfcf65f3d1bd5d42b12696.png?size=2048"
-      );
+      ])
+      .setColor(message.guild.members.cache.get(client.user.id).displayColor)
+      .setFooter({
+        text: "El Turbinas#09921",
+        iconURL: "https://cdn.discordapp.com/avatars/337638270861049857/0ae0087039cfcf65f3d1bd5d42b12696.png?size=2048"
+      });
 
     if (winner == 0) {
       embed.setDescription("¡Vaya, hubo un empate!");

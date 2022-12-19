@@ -1,5 +1,5 @@
 import { Command } from "../../../structures/CommandMsg";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 export default new Command({
     name: "prefix",
@@ -7,12 +7,12 @@ export default new Command({
     category: "util",
     use: "",
     isDev: false,
-    botPermissions: ["EMBED_LINKS"],
+    botPermissions: ["EmbedLinks"],
 
     async run({ message, args, client, _guild }) {
-        let embed = new MessageEmbed()
+        let embed = new EmbedBuilder()
             .setTitle("Este es el prefix actual")
-            .setColor("RANDOM")
+            .setColor("Blue")
             .setDescription(`\`${_guild.configuration.prefix}\``)
             .setFooter({ text: "Powered by CacheSystem", iconURL: message.author.displayAvatarURL() });
 

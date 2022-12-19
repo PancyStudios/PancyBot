@@ -1,4 +1,4 @@
-import { CommandInteractionOptionResolver, GuildMember } from "discord.js";
+import { CommandInteractionOptionResolver } from "discord.js";
 import { client } from "../..";
 import { Event } from "../../structures/Events";
 import { ExtendedInteraction } from "../../typings/command";

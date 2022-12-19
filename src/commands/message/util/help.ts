@@ -1,5 +1,5 @@
 import { Command } from "../../../structures/CommandMsg";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder, Colors } from "discord.js";
 import { version, dependencies } from "../../../../package.json";
 
 export default new Command({
@@ -8,12 +8,12 @@ export default new Command({
     category: "util",
     use: "",
     isDev: false,
-    botPermissions: ["EMBED_LINKS"],
+    botPermissions: ["EmbedLinks"],
     async run({ client, message, _guild }) {
-        const HelpEmbed = new MessageEmbed()
+        const HelpEmbed = new EmbedBuilder()
         .setTitle(client.user.username)
         .setAuthor({ name: message.author.username, iconURL: message.author.avatarURL() })
-        .setColor("RANDOM")
+        .setColor(Colors.Blurple)
         .setDescription(`
             **📚 | Comandos de ayuda**
             \`\`\`${_guild.configuration.prefix}help\`\`\` Muestra los comandos basicos

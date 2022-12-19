@@ -1,9 +1,13 @@
 import {
   Client,
   Message,
-  MessageEmbed,
-  MessageActionRow,
-  MessageSelectMenu,
+  EmbedBuilder,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  APISelectMenuComponent,
+  SelectMenuBuilder,
+  Colors,
+  ComponentType
 } from "discord.js";
 import { Command } from "../../../structures/CommandMsg";
 
@@ -14,7 +18,7 @@ export default new Command({
     description: "Muestra la lista de comandos",
     category: "util",
     isDev: false,
-    botPermissions: ["EMBED_LINKS"],
+    botPermissions: ["EmbedLinks"],
 
     async run({ message, client }) {
         const directories = [
@@ -39,26 +43,29 @@ export default new Command({
           });
 
 
-    const embed = new MessageEmbed().setDescription(
+    const embed = new EmbedBuilder().setDescription(
         "Seleciona una categoria"
-      ).setColor('YELLOW').setFooter(message.author.tag, message.author.avatarURL({ dynamic: true })).setTimestamp();
-  
-      const components = (state) => [
-        new MessageActionRow().addComponents(
-          new MessageSelectMenu()
-            .setCustomId("help-menu")
-            .setPlaceholder("Porfavor selecciona una categoria")
-            .setDisabled(state)
-            .addOptions(
-              categories.map((cmd) => {
-                return {
-                  label: cmd.directory,
-                  value: cmd.directory.toLowerCase(),
-                  description: `Comandos de ${cmd.directory}`,
-                };
-              })
-            )
-        ),
+      ).setColor("Yellow").setFooter({ text: message.author.tag, iconURL: message.author.avatarURL()}).setTimestamp();
+      
+      const adw = new ActionRowBuilder<StringSelectMenuBuilder>()
+
+      const components = (state: boolean) => [
+        adw.addComponents([
+          new StringSelectMenuBuilder()
+          .setCustomId("help-menu")
+          .setPlaceholder("Porfavor selecciona una categoria")
+          .setDisabled(state)
+          .addOptions(
+            categories.map((cmd) => {
+              return {
+                label: cmd.directory,
+                value: cmd.directory.toLowerCase(),
+                description: `Comandos de ${cmd.directory}`,
+              };
+            })
+          )
+
+        ])
       ];
       const initalMessage = await message.reply({
         embeds: [embed],
@@ -69,16 +76,16 @@ export default new Command({
   
       const collector = message.channel.createMessageComponentCollector({
         filter,
-        componentType: "SELECT_MENU",
+        componentType: ComponentType.SelectMenu,
       });
   
       collector.on("collect", (interaction) => {
-        const [directory] = interaction.values;
+        const [directory] = (interaction as any).values;
         const category = categories.find(
           (x) => x.directory.toLowerCase() === directory
         );
   
-        const categoryEmbed = new MessageEmbed()
+        const categoryEmbed = new EmbedBuilder()
           .setTitle(`comandos de ${directory}`)
           .setDescription("Lista de comandos")
           .addFields(
@@ -90,15 +97,15 @@ export default new Command({
               };
             })
           )
-          .setColor("RANDOM")
-          .setThumbnail(interaction.user.avatarURL({ dynamic: true }))
-          .setFooter(
-            interaction.user.username,
-            interaction.user.avatarURL({ dynamic: true })
-          )
+          .setColor(Colors.Blurple)
+          .setThumbnail((interaction as any).user.avatarURL())
+          .setFooter({
+            text: (interaction as any).user.username,
+            iconURL: (interaction as any).user.avatarURL()
+          })
           .setTimestamp();
   
-        interaction.update({ embeds: [categoryEmbed] });
+        (interaction as any).update({ embeds: [categoryEmbed] });
       });
   
       collector.on("end", () => {

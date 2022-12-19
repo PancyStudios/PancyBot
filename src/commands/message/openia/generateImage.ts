@@ -1,7 +1,7 @@
 import { sendImage } from "../../../utils/SystemBot/sendImage";
 import { craiyon, crashClient, utils } from "../../..";
 import { Command } from "../../../structures/CommandMsg";
-import { MessageEmbed, MessageAttachment } from "discord.js";
+import { EmbedBuilder, AttachmentBuilder, Colors } from "discord.js";
 import path from "path"
 import fs from "fs"
 
@@ -10,7 +10,7 @@ export default new Command({
     description: "Genera una imagen",
     isDev: false,
     category: "IA",
-    botPermissions: ["EMBED_LINKS"],
+    botPermissions: ["EmbedLinks"],
     use: "<Descripcion de la imagen>",
 
     async run({ message, args, _guild }) {
@@ -39,7 +39,7 @@ export default new Command({
 
                     fs.writeFileSync('lastId.txt', `${number + 1}`);
 
-                    const image = new MessageAttachment(stream, "craiyon.png")
+                    const image = new AttachmentBuilder(stream, { name: "craiyon.png" })
 
                     const finalTime = Date.now() - firstTime;
                     msg.edit({ content: `Generado Craiyon ID Image: (${number + 1}) en: ${finalTime / 1000}s`, files: [image] })
@@ -52,13 +52,13 @@ export default new Command({
                 .finally(() => console.log("done"))
             })
         } catch (error) {
-                const ErrorMessage = new MessageEmbed()
+                const ErrorMessage = new EmbedBuilder()
                 .setTitle("Craiyon Error")
                 .setDescription(`Error: ${error}`)
-                .setColor("RED")
+                .setColor(Colors.Red)
                 .setTimestamp()
 
-                message.reply({ embeds: [ErrorMessage]})
+                message.reply({ embeds: [ErrorMessage] })
 
                 crashClient.report({ error: "Craiyon", message: error })
                 console.log(error)

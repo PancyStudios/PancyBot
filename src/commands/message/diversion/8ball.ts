@@ -1,6 +1,6 @@
 import { Command } from '../../../structures/CommandMsg'
 import { utils } from '../../..'
-import { MessageEmbed } from 'discord.js'
+import { EmbedBuilder, Colors } from 'discord.js'
 
 export default new Command({
     name: '8ball',
@@ -15,7 +15,7 @@ export default new Command({
 
         if(!question) return utils.dataRequired(`No se escribio una pregunta\n\n${_guild.configuration.prefix}8ball <Pregunta>`)
         
-        const EmbedQuest = new MessageEmbed()
+        const EmbedQuest = new EmbedBuilder()
         .setTitle('8ball')
         .setFields([
             {
@@ -29,7 +29,7 @@ export default new Command({
         ])
         .setFooter({ text: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL()}` })
         .setTimestamp()
-        .setColor('RANDOM')
+        .setColor(Colors.Blurple)
 
         message.reply({ embeds: [EmbedQuest] })
     }

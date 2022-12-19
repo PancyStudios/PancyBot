@@ -1,4 +1,4 @@
-import { Model, connection } from "mongoose";
+import { Model } from "mongoose";
 import chalk from 'chalk'
 
 export class SecuritySystem {

@@ -1,6 +1,7 @@
 import { Event } from "../../structures/Events";
 import { version } from "../../../package.json"
 import { client, danbotUser } from "../..";
+import { ActivityType } from "discord.js"
 export default new Event('ready', async (_client) => {
     console.log('Bot encendido')
 
@@ -17,7 +18,7 @@ export default new Event('ready', async (_client) => {
         client.user.setPresence({
             activities: [{
                 name: random,
-                type: 'PLAYING'
+                type: ActivityType.Playing,
             }],
             afk: false,
         })

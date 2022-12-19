@@ -2,7 +2,7 @@ import { Command } from "../../../structures/CommandMsg";
 import { install_commands } from "../../../utils/install";
 import { curly } from 'node-libcurl' 
 import { version } from '../../../../package.json'
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder, Colors } from "discord.js";
 import { app } from "../../../utils/SystemServer";
 
 export default new Command({
@@ -23,7 +23,7 @@ export default new Command({
                 message.reply('Se completo la funcion')
             })
         } else if(args[0] === 'webhookPost') {
-            const Embed = new MessageEmbed()
+            const Embed = new EmbedBuilder()
             .setDescription('Tested')
 
             const {statusCode} = await curly.post(process.env.errorWebhook, {
@@ -40,9 +40,9 @@ export default new Command({
 
             message.reply(`Status Code: ${statusCode}`) // Status Code: 200
         } else if(args[0] === "killSystem") {
-            const Embed = new MessageEmbed()
+            const Embed = new EmbedBuilder()
             .setDescription('Estas seguro que quieres forzar esta funcion?, en caso de estar seguro escribe `confirm`')
-            .setColor('YELLOW')
+            .setColor(Colors.Yellow)
             .setFooter({ text: `PancyBot v${version} | Dev Funtions`, iconURL: client.user.avatarURL() })
             
             const msg_filter = (m) => m.author.id === message.author.id && m.channelId === message.channelId;
@@ -63,7 +63,7 @@ export default new Command({
                                                 return
                     }
 
-                    const EmbedConfirm = new MessageEmbed()
+                    const EmbedConfirm = new EmbedBuilder()
                     .setDescription("Apagando sistema...\n\n\n||Es probable que tengas que volver a ejecutar este comando mas de 2 veces||")
                     msg.edit({ embeds: [EmbedConfirm], })
 

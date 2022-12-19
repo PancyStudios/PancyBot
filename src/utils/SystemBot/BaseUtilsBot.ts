@@ -1,5 +1,5 @@
 import { connection } from "mongoose";
-import { Client, Message, MessageEmbed, TextChannel } from "discord.js";
+import { ChannelType, Message, EmbedBuilder, TextChannel } from "discord.js";
 import { updateDataBase } from "../CacheSystem/functions";
 import { ExtendedClient } from "../../structures/Client";
 import { GuildDataFirst } from "../../database/typings/Security";
@@ -65,7 +65,7 @@ async automoderator(client, mongoose, message, sanctionReason) {
         });
         userWarns.save();
 
-        message.reply({ embeds: [ new MessageEmbed().setColor(0x0056ff).setDescription(`<@${message.author.id}>, has sido advertido.\n\nRazón: \`${sanctionReason}\`\nModerador: \`${client.user.tag}\``) ] });
+        message.reply({ embeds: [ new EmbedBuilder().setColor(0x0056ff).setDescription(`<@${message.author.id}>, has sido advertido.\n\nRazón: \`${sanctionReason}\`\nModerador: \`${client.user.tag}\``) ] });
 
         if(userWarns.warns.length == mongoose.moderation.automoderator.actions.warns[0]) {
             if(message.member.roles.cache.has(mongoose.moderation.dataModeration.muterole))return;
@@ -147,7 +147,7 @@ async automoderator(client, mongoose, message, sanctionReason) {
 
 
     async dataRequired(message: string) {
-        const dataRequiredEmbed = new MessageEmbed().setColor('RED');
+        const dataRequiredEmbed = new EmbedBuilder().setColor('Red');
         dataRequiredEmbed.setDescription('`' + message + '`').setFooter({ text: 'Codigo Basado en TIB.' }); 
         return { content: '`[]` = Opcional.\n`<>` = Requerido.\n`{}` = Función.', embeds: [ dataRequiredEmbed ] };
     }
@@ -165,7 +165,7 @@ async automoderator(client, mongoose, message, sanctionReason) {
     async intelligentSOS(_guild: GuildDataFirst, client: ExtendedClient, eventType) {
         if(_guild.protection.intelligentSOS.cooldown == false) {
             let guild = await client.guilds.cache.get(_guild.id) || await client.guilds.fetch(_guild.id);
-            let invite = await (guild.channels.cache.filter(m => m.type == 'GUILD_TEXT').random() as TextChannel).createInvite();
+            let invite = await (guild.channels.cache.filter(m => m.type == ChannelType.GuildText).random() as TextChannel).createInvite();
             if(invite !== undefined) {
                 (client.channels.cache.get('0') as TextChannel).send('@everyone SOS de `' + eventType + '`:\nhttps://discord.gg/' + invite);
                 (client.channels.cache.get('0') as TextChannel).send('@everyone SOS de `' + eventType + '`:\nhttps://discord.gg/' + invite);

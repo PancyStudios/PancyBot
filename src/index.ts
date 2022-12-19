@@ -3,17 +3,12 @@ import { ExtendedClient } from './structures/Client'
 import { AntiCrash } from "./utils/SystemError/CrashError";
 import { PancyBotUtils } from "./utils/SystemBot/BaseUtilsBot";
 import { app } from "./utils/SystemServer";
-import {Blob} from 'blob-polyfill';
-import fileReader from 'file-reader';
 import { sendImage } from "./utils/SystemBot/sendImage";
-import stream from "stream"
 import danbot from 'danbot-hosting';
 import donenv from 'dotenv';
 import { Client } from 'craiyon';
 import fs, { readdir } from "fs";
 import path from "path";
-import axios from "axios";
-import FormData from "form-data";
 
 
 

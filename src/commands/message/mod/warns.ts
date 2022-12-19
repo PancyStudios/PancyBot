@@ -1,8 +1,7 @@
 import { Command } from "../../../structures/CommandMsg";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import { utils } from "../../..";
 import { warns } from "../../../database/Warns";
-import { Warns } from "../../../database/typings/Warns";
 
 export default new Command({
   name: "warns",
@@ -10,8 +9,8 @@ export default new Command({
   description: "Muestra la lista de warns de un usuario",
   category: "mod",
   isDev: false,
-  botPermissions: ["EMBED_LINKS"],
-  userPermissions: ["MANAGE_MESSAGES"],
+  botPermissions: ["EmbedLinks"],
+  userPermissions: ["ManageMessages"],
   async run({ message, _guild }) {
     let userMention = message.mentions.members.first();
     if (!userMention)
@@ -36,7 +35,7 @@ export default new Command({
     let cc = 1;
     message.reply({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
           .setColor(0x0056ff)
           .setDescription(
             `Estas viendo los ${userWarns.warns.length} warns de <@${

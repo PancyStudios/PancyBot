@@ -1,6 +1,6 @@
 import { writeFileSync, existsSync, mkdirSync } from 'fs'
 import { curly } from 'node-libcurl' 
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { version } from '../../../package.json'
 import { ReportErrorOptions } from '../../typings/reportError';
 import { client } from '../..';
@@ -39,10 +39,10 @@ export class AntiCrash {
             
             writeFileSync(""+process.cwd()+"/ErrorLogs/unhandledRejection_"+Date.now()+".log", data);
 
-            const Embed = new MessageEmbed()
+            const Embed = new EmbedBuilder()
             .setAuthor({ name: 'CrashReport'})
             .setDescription(`CrashError: ${reason} ${p}`)
-            .setColor('RED')
+            .setColor('Red')
             .setFooter({ text: `Pancybot v${version}` })
 
             const {statusCode} = await curly.post(process.env.errorWebhook, {
@@ -99,10 +99,10 @@ export class AntiCrash {
      * @interface ReportErrorOptions
      */
     async report(data: ReportErrorOptions) {
-        const Embed = new MessageEmbed()
+        const Embed = new EmbedBuilder()
         .setAuthor({ name: 'CrashReport'})
         .setDescription(`CrashError: ${data.error} ${data.message ?? "unknown"}`)
-        .setColor('RED')
+        .setColor('Red')
         .setFooter({ text: `Pancybot v${version}` })
 
         const {statusCode} = await curly.post(process.env.errorWebhook, {

@@ -1,5 +1,5 @@
 import { Command } from "../../../structures/CommandMsg";
-import { MessageEmbed } from "discord.js"
+import { EmbedBuilder } from "discord.js"
 import ms from "ms"
 
 export default new Command({
@@ -7,8 +7,8 @@ export default new Command({
     description: "Banea temporalmente a alguien",
     category: "mod",
     use: "<User> <Time> [Reason]",
-    userPermissions: ["BAN_MEMBERS"],
-    botPermissions: ["EMBED_LINKS", "BAN_MEMBERS"],
+    userPermissions: ["BanMembers"],
+    botPermissions: ["EmbedLinks", "BanMembers"],
 
     run: async ({ client, args, _guild }) => {
         

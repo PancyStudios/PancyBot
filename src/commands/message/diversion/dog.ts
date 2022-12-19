@@ -1,5 +1,5 @@
 import { Command } from "../../../structures/CommandMsg";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder, Colors } from "discord.js";
 import nekos from "nekos.life";
 const neko = new nekos();
 
@@ -8,7 +8,7 @@ export default new Command({
     description: "Muestra una imagen de un perro",
     use: "",
     category: "diversion",
-    botPermissions: ["EMBED_LINKS"],
+    botPermissions: ["EmbedLinks"],
     isDev: false,
 
     async run({ message }) {
@@ -17,9 +17,9 @@ export default new Command({
         if(randomPorcentage > 90) {
             imagen.url = "https://media.discordapp.net/attachments/970050180965597234/1001279578943275080/IMG-20220618-WA0009.jpg?width=630&height=473"
         }
-        let embed = new MessageEmbed()
+        let embed = new EmbedBuilder()
             .setTitle("Mira un perro")
-            .setColor("RANDOM")
+            .setColor(Colors.Blurple)
             .setImage(imagen.url)
             .setFooter({ text: "Powered by nekos.life", iconURL: message.author.displayAvatarURL()});
 

@@ -25,7 +25,7 @@ export default new Event('messageCreate', async msg => {
     let cache = await client.super.cache.get(msg.author.id);
 
     try{
-        if(!msg.member.permissions.has('MANAGE_MESSAGES')) {
+        if(!msg.member.permissions.has('ManageMessages')) {
 
             // Badwords:
             for(let x of _guild.moderation.dataModeration.badwords) {
@@ -174,7 +174,7 @@ export default new Event('messageCreate', async msg => {
 
         // IntelligentAntiflood:
         if(_guild.protection.intelligentAntiflood == true) {
-            if(msg.guild.me.permissions.has('KICK_MEMBERS')) {
+            if(msg.guild.members.cache.get(client.user.id).permissions.has('KickMembers')) {
                 if(`${(msg.channel as TextChannel).name}`.includes('flood') || (`${(msg.channel as TextChannel).topic}`.includes('permite') && `${(msg.channel as TextChannel).topic}`.includes('flood') && !`${(msg.channel as TextChannel).topic}`.includes('no')))return;
                 if(msg.content == cache.lastContent) {
                     cache.lastContent = msg.content;
@@ -249,7 +249,7 @@ export default new Event('messageCreate', async msg => {
       let userPermissions = command.userPermissions;
       let botPermissions = command.botPermissions;
       if(!msg.member.permissions.has(userPermissions || [])) return msg.reply(`No tienes permisos para ejecutar este comando.\n Uno de estos permisos puede faltar: \`${typeof userPermissions === 'string' ? userPermissions : userPermissions.join(', ')}\``)
-      if(!msg.guild.me.permissions.has(botPermissions || [])) return msg.reply(`No tengo permisos para ejecutar este comando.\n Uno de estos permisos puede faltar: \`${typeof botPermissions === 'string' ? botPermissions : botPermissions.join(', ')}\``)
+      if(!msg.guild.members.cache.get(client.user.id).permissions.has(botPermissions || [])) return msg.reply(`No tengo permisos para ejecutar este comando.\n Uno de estos permisos puede faltar: \`${typeof botPermissions === 'string' ? botPermissions : botPermissions.join(', ')}\``)
       if(command.isDev) {
         if(msg.author.id !== botStaff.ownerBot) return msg.reply('Comando solo de desarrollador')
         command.run({

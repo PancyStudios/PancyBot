@@ -1,5 +1,5 @@
 import { Command } from "../../../structures/CommandMsg";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import { version, dependencies } from "../../../../package.json";
 import moment from "moment";
 import("moment-duration-format");
@@ -16,7 +16,7 @@ export default new Command({
       .format(" D [dias], H [hrs], m [mins], s [secs]");
     const botOwner = client.users.cache.get("711329342193664012");
     const desingerBot = client.users.cache.get("796650479673147422");
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setAuthor({
         name: `${client.user.tag} v${version}`,
         iconURL: client.user.avatarURL(),
@@ -80,7 +80,7 @@ export default new Command({
           inline: true,
         },
       ])
-      .setColor("YELLOW")
+      .setColor("Yellow")
       .setThumbnail(client.user.avatarURL())
       .setFooter({
         text: "Lenguaje: TypeScript",

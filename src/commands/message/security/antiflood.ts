@@ -5,8 +5,8 @@ export default new Command({
     name: "antiflood",
     category: "proteccion",
     description: "Evita el flood en el servidor",
-    botPermissions: ["MANAGE_MESSAGES", "BAN_MEMBERS"],
-    userPermissions: ["MANAGE_GUILD"],
+    botPermissions: ["ManageMessages", "BanMembers"],
+    userPermissions: ["ManageGuild"],
     use: "flood [maxAmountDetect]",
 
     run: async ({ client, message, args, _guild}) => { 
