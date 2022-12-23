@@ -2,7 +2,7 @@ import { Event } from "../../structures/Events";
 import { version } from "../../../package.json"
 import { client, danbotUser } from "../..";
 import { ActivityType } from "discord.js"
-export default new Event('ready', async (_client) => {
+export default new Event('ready', async () => {
     console.log('Bot encendido')
 
     const activities = [

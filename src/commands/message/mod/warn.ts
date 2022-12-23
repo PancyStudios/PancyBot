@@ -24,34 +24,6 @@ export default new Command({
             "warn <userMention> [reason]"
         )
       );
-    if (_guild.moderation.dataModeration.forceReasons.length > 0) {
-      if (!reason)
-        return message.reply(
-          await utils.dataRequired(
-            "La razón es obligatoria.\n\n" +
-              _guild.configuration.prefix +
-              "warn <userMention> <reason>\n\n" +
-              "Razones validas" +
-              ": " +
-              _guild.moderation.dataModeration.forceReasons
-                .map((x) => `${x}`)
-                .join(", ")
-          )
-        );
-      if (!_guild.moderation.dataModeration.forceReasons.includes(args[1]))
-        return message.reply(
-          await utils.dataRequired(
-            "Razón invalida.\n\n" +
-              _guild.configuration.prefix +
-              "warn <userMention> <reason>\n\n" +
-              "Razónes validas" +
-              ": " +
-              _guild.moderation.dataModeration.forceReasons
-                .map((x) => `${x}`)
-                .join(", ")
-          )
-        );
-    }
     if (!reason) reason = `Sin especificar.`;
 
     let userWarns = await Warns.findOne({
@@ -93,80 +65,5 @@ export default new Command({
           ),
       ],
     });
-    if (
-      (userWarns.warns.length ==
-        _guild.moderation.automoderator.actions.warns[0] ||
-        userWarns.warns.length ==
-          _guild.moderation.automoderator.actions.warns[1]) &&
-      _guild.configuration.subData.dontRepeatTheAutomoderatorAction == true
-    ) {
-      message.reply({
-        content: `Se advirtio al usuario \`${userMention.user.username}\` tiene muchas infracciones pero esta acción automática del automoderador fue desactivada, eso quiere decir que no puedo mutearle/banearle/expulsarle.\n\n> Acción realizada por: Sistema automoderador.`,
-      });
-    }
-
-    if (_guild.moderation.automoderator.enable == true) {
-      if (
-        userWarns.warns.length ==
-          _guild.moderation.automoderator.actions.warns[0] &&
-        _guild.configuration.subData.dontRepeatTheAutomoderatorAction == false
-      ) {
-        let remember = [];
-        try {
-          userMention.roles.cache.forEach((x) => {
-            remember.push(x.id);
-            userMention.roles.remove(x.id).catch((err) => {});
-          });
-
-          userMention.roles
-            .add(_guild.moderation.dataModeration.muterole)
-            .catch((err) => {
-              message.channel.send(err);
-            });
-        } catch (err) {
-          message.channel.send(err);
-        }
-
-        // Set timer:
-        _guild.moderation.dataModeration.timers.push({
-          user: {
-            id: userMention.id,
-            username: userMention.user.username,
-            roles: remember,
-          },
-          endAt:
-            Date.now() + _guild.moderation.automoderator.actions.muteTime[0],
-          action: "UNMUTE",
-          channel: message.channel.id,
-          inputTime: args[1],
-        });
-        updateDataBase(client, message.guild, _guild, true);
-        let _timers = await Timers.findOne({});
-        if (
-          !(_timers.servers as unknown as Array<any>).includes(message.guild.id)
-        ) {
-          (_timers.servers as unknown as Array<any>).push(message.guild.id);
-          _timers.save();
-        }
-
-        message.reply({
-          content: `He muteado a \`${userMention.user.username}\` durante \`${_guild.moderation.automoderator.actions.muteTime[1]}\`\n\n> Acción realizada por: Sistema automoderador ya que tenía muchas infracciónes.`
-        });
-      } else if (
-        userWarns.warns.length ==
-          _guild.moderation.automoderator.actions.warns[1] &&
-        _guild.configuration.subData.dontRepeatTheAutomoderatorAction == false
-      ) {
-        userMention.ban({
-          reason: (args as Array<string>)
-            .join(" ")
-            .split(`${userMention.id}> `)[1],
-        });
-
-        message.reply({
-          content: `He baneado a \`${userMention.user.username}\`\n\n> Acción realizada por: Sistema automoderador ya que tenía el máximo de infracciónes.`
-        });
-      }
-    }
   },
 });

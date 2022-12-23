@@ -1,5 +1,12 @@
 {
-    "botStaff" : {
-        "ownerBot" : "711329342193664012"
+  "botStaff": {
+    "ownerBot": "711329342193664012"
+  },
+  "exclusiveUsers": [
+    {
+      "id": "735194324047888466",
+      "name": "KittySoft",
+      "devPermissions": true 
     }
+  ]
 }

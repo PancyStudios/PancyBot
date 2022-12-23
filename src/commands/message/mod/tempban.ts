@@ -10,7 +10,7 @@ export default new Command({
     userPermissions: ["BanMembers"],
     botPermissions: ["EmbedLinks", "BanMembers"],
 
-    run: async ({ client, args, _guild }) => {
-        
+    run: async ({ client, message, args, _guild }) => {
+        message.reply('Commando en desarrollo')
     }
 })
