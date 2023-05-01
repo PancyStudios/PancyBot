@@ -76,7 +76,7 @@ export default new Command({
   
       const collector = message.channel.createMessageComponentCollector({
         filter,
-        componentType: ComponentType.SelectMenu,
+        componentType: ComponentType.StringSelect,
       });
   
       collector.on("collect", (interaction) => {

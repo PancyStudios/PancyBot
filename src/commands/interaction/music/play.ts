@@ -1,5 +1,6 @@
 import { Command } from "../../../structures/CommandSlash";
 import { ApplicationCommandOptionType, TextChannel } from "discord.js";
+import { player } from "../../..";
 import { exclusiveUsers, botStaff } from "../../../utils/variables.json"
 export default new Command({
     name: 'play', 
@@ -12,16 +13,48 @@ export default new Command({
     }],
 
     async run ({ client, interaction, args }) {
-        if (botStaff.ownerBot !== interaction.user.id || !exclusiveUsers.some(x => x.id === interaction.user.id)) return interaction.followUp("No tienes permitido usar este comando: \n\nDisponible para `ExclusiveUsers | botStaff`")
-        const string = args.getString('song');
-        if (!string) return interaction.followUp(`:x: | Please enter a song url or query to search.`)
-        if (string.includes('youtube')) return interaction.followUp({ content: "Links de youtube no permitidos" })
-        const msg = await interaction.followUp('** **')
-        
-        client.player.play(interaction.member.voice.channel, string, {
-            member: interaction.member,
-            textChannel: interaction.channel,
-            message: msg,
+        const song = args.getString('song')
+        const memberChannel = interaction.member.voice.channel.id
+
+        // Spawning lavalink player
+        const player1 = player.createConnection({
+          guildId: interaction.guild.id,
+          voiceChannel: interaction.member.voice.channel.id,
+          textChannel: interaction.channel.id,
+          deaf: true,
+          mute: false
         })
+        
+        if(!player1) return interaction.followUp('Error desconocido')
+
+        const resolve = await player.resolve({
+          query: song,
+          source: 'spsearch'
+        })
+        const { loadType, tracks, playlistInfo } = resolve;
+        // Adding in queue
+        if (loadType === "PLAYLIST_LOADED") {
+    
+          for (let x of resolve.tracks) {
+             x.info.requester = interaction.user;
+              player1.queue.add(x);
+    
+          }
+          interaction.followUp({ content: `Added: \`${resolve.tracks.length} from ${resolve.playlistInfo.name}\`` });
+          if (!player1.isPlaying && !player1.isPaused) return  player1.play();
+    
+        }else if(loadType ==="SEARCH_RESULT"|| loadType ==="TRACK_LOADED"){
+          const track = tracks.shift();
+        track.info.requester = interaction.user;
+    
+          
+          
+         player1.queue.add(track);         
+            interaction.followUp({ content: `Added: \`${track.info.title}\`` });
+            if (!player1.isPlaying && !player1.isPaused) return  player1.play();
+            
+        }else{
+           return interaction.followUp({ content: "There are no results found."})
+        }
     }
 })

@@ -23,14 +23,16 @@ export default new Event('messageCreate', async msg => {
 
     let _user = await fecthUsersDataBase(client, author, false)
     let cache = await client.super.cache.get(msg.author.id);
-
+    console.log(3)
     let prefix = _guild.configuration.prefix
+    console.log(prefix)
     const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       const prefixRegex = new RegExp(
         `^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`
       );
     
-    if (!prefixRegex.test(msg.content)) return;
+    if (!prefixRegex.test(msg.content)) return console.log(0);
+    console.log(1)
     if(msg.author.bot) return msg.reply('LOS BOTS NO PUEDEN USAR COMANDOS')
 
     
@@ -43,10 +45,10 @@ export default new Event('messageCreate', async msg => {
 
     const cmd = args.shift().toLowerCase();
     if (cmd.length == 0) return;
-
+      
+    console.log(2)
     const command = client.commandsMsg.get(cmd)
     if(command) {
-
       let userPermissions = command.userPermissions;
       let botPermissions = command.botPermissions;
       if(!msg.member.permissions.has(userPermissions || [])) return msg.reply(`No tienes permisos para ejecutar este comando.\n Uno de estos permisos puede faltar: \`${typeof userPermissions === 'string' ? userPermissions : userPermissions.join(', ')}\``)

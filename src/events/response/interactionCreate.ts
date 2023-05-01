@@ -8,6 +8,7 @@ export default new Event("interactionCreate", async (interaction) => {
     console.log(interaction.id)
     // Chat Input Commands
     if (interaction.isCommand()) {
+        console.log(interaction.isRepliable())
         await interaction.deferReply();
         const command = client.commands.get(interaction.commandName);
         if (!command)
@@ -17,7 +18,7 @@ export default new Event("interactionCreate", async (interaction) => {
             if(!interaction.guild.members.cache.get(interaction.user.id).permissions.has(userPermissions || [])) return interaction.followUp(`No tienes permisos para ejecutar este comando.\n Uno de estos permisos puede faltar: \`${typeof userPermissions === 'string' ? userPermissions : userPermissions.join(', ')}\``)
             if(!interaction.guild.members.cache.get(client.user.id).permissions.has(botPermissions || [])) return interaction.followUp(`No tengo permisos para ejecutar este comando.\n Uno de estos permisos puede faltar: \`${typeof botPermissions === 'string' ? botPermissions : botPermissions.join(', ')}\``)
         if(command.isDev) {
-            if(interaction.user.id !== botStaff.ownerBot) return interaction.followUp("Solo el dueño del bot puede usar este commando");
+            if(interaction.user.id !== botStaff.ownerBot) return interaction.followUp("Solo el dueño del bot puede usar este commando"); console.log('NO')
             command.run({
                 args: interaction.options as CommandInteractionOptionResolver,
                 client,

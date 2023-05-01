@@ -1,5 +1,5 @@
-import { writeFileSync, existsSync, mkdirSync } from 'fs'
-import { curly } from 'node-libcurl' 
+import { writeFileSync, existsSync, mkdirSync } from 'fs';
+import axios from 'axios';
 import { EmbedBuilder } from 'discord.js';
 import { version } from '../../../package.json'
 import { ReportErrorOptions } from '../../typings/reportError';
@@ -45,17 +45,16 @@ export class AntiCrash {
             .setColor('Red')
             .setFooter({ text: `Pancybot v${version}` })
 
-            const {statusCode} = await curly.post(process.env.errorWebhook, {
-                postFields: JSON.stringify({
-                    username: `PancyBot ${version} | CrashError`,
-                    embeds: [
-                        Embed
-                    ]
-                }),
-                httpHeader: [
-                    'Content-Type: application/json',
-                ],
-            });
+            let statusCode: number
+
+            const {status} = await axios.post(process.env.errorWebhook, {
+                username: `PancyBot ${version} | CrashError`,
+                embeds: [
+                    Embed
+                ]
+            })
+
+            statusCode = status
 
             console.warn(`[AntiCrash] :: Sent CrashError to Webhook, Status Code: ${statusCode}`);
             
@@ -91,7 +90,6 @@ export class AntiCrash {
             }
     
             writeFileSync(""+process.cwd()+"/ErrorLogs/multipleResolves_"+Date.now()+".log", data);
-            errors++;
         });
     }
 
@@ -105,17 +103,19 @@ export class AntiCrash {
         .setColor('Red')
         .setFooter({ text: `Pancybot v${version}` })
 
-        const {statusCode} = await curly.post(process.env.errorWebhook, {
-            postFields: JSON.stringify({
-                username: `PancyBot ${version} | CrashError`,
-                embeds: [
-                    Embed
-                ]
-            }),
-            httpHeader: [
-                'Content-Type: application/json',
-            ],
-        });
+
+        let statusCode: number
+
+        const {status} = await axios.post(process.env.errorWebhook, {
+            username: `PancyBot ${version} | CrashError`,
+            embeds: [
+                Embed
+            ]
+        })
+
+        statusCode = status
+
+        console.warn(`[AntiCrash] :: Sent CrashError to Webhook, Status Code: ${statusCode}`);
 
         console.warn(`[AntiCrash] :: Sent CrashError to Webhook, Status Code: ${statusCode}`);
     }

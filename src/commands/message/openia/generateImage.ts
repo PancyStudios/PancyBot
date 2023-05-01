@@ -9,7 +9,7 @@ export default new Command({
     name: "createimage",
     description: "Genera una imagen",
     isDev: false,
-    category: "IA",
+    category: "openia",
     botPermissions: ["EmbedLinks"],
     use: "<Descripcion de la imagen>",
 

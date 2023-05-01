@@ -13,6 +13,8 @@ declare global {
             username: string;
             password: string;
             imageDbUrl: string;
+            lavaserver: string;
+            lavapassword: string;
         }
     }
 }

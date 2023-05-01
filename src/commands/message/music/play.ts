@@ -1,5 +1,6 @@
 import { Command } from "../../../structures/CommandMsg";
 import { TextChannel } from "discord.js";
+import { player } from "../../..";
 import { exclusiveUsers, botStaff } from "../../../utils/variables.json"
 export default new Command({
     name: 'play', 
@@ -9,14 +10,46 @@ export default new Command({
     use: '<Song>',
 
     async run ({ client, message, args }) {
-        if (botStaff.ownerBot !== message.author.id || !exclusiveUsers.some(x => x.id === message.author.id)) return message.reply("No tienes permitido usar este comando: \n\nDisponible para `ExclusiveUsers | botStaff`")
-        const string = (args as []).join(' ') + "(Spotify)";
-        if (!string) return message.reply(`:x: | Please enter a song url or query to search.`)
-        if (string.includes("youtube")) return message.reply({ content: "Youtube Links no permitidos"})
-        client.player.play(message.member.voice.channel, string, {
-          member: message.member,
-          textChannel: message.channel as TextChannel,
-          message: message,
-        })
+      const memberChannel = message.member.voice.channel.id
+
+      // Spawning lavalink player
+      const player1 = await player.createConnection({
+        guildId: message.guild.id,
+        voiceChannel: message.member.voice.channel.id,
+        textChannel: message.channel.id,
+        deaf: true,
+        mute: false
+      })
+
+      const resolve = await client.player.resolve({
+        query: (args as string[]).join(' '),
+        
+      })
+      const { loadType, tracks, playlistInfo } = resolve;
+      // Adding in queue
+      if (loadType === "PLAYLIST_LOADED") {
+  
+        for (let x of resolve.tracks) {
+           x.info.requester = message.author;
+            player1.queue.add(x);
+  
+        }
+        message.channel.send({ content: `Added: \`${resolve.tracks.length} from ${resolve.playlistInfo.name}\`` });
+        if (!player1.isPlaying && !player1.isPaused) return  player1.play();
+  
+      }else if(loadType ==="SEARCH_RESULT"|| loadType ==="TRACK_LOADED"){
+        const track = tracks.shift();
+      track.info.requester = message.author;
+  
+        
+        
+       player1.queue.add(track);         
+          message.channel.send({ content: `Added: \`${track.info.title}\`` });
+          if (!player1.isPlaying && !player1.isPaused) return  player1.play();
+          
+      }else{
+        
+         return message.channel.send({ content: "There are no results found."})
+      }
     }
 })

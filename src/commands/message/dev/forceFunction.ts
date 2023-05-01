@@ -1,6 +1,6 @@
 import { Command } from "../../../structures/CommandMsg";
 import { install_commands } from "../../../utils/install";
-import { curly } from 'node-libcurl' 
+import axios from 'axios'
 import { version } from '../../../../package.json'
 import { EmbedBuilder, Colors } from "discord.js";
 import { app } from "../../../utils/SystemServer";
@@ -26,17 +26,19 @@ export default new Command({
             const Embed = new EmbedBuilder()
             .setDescription('Tested')
 
-            const {statusCode} = await curly.post(process.env.errorWebhook, {
-                postFields: JSON.stringify({
-                    username: `PancyBot ${version} | ForceFunctions`,
-                    embeds: [
-                        Embed
-                    ]
-                }),
-                httpHeader: [
-                    'Content-Type: application/json',
-                ],
-            });
+            
+            let statusCode: number
+
+            const {status} = await axios.post(process.env.errorWebhook, {
+                username: `PancyBot ${version} | ForceFunctions`,
+                embeds: [
+                    Embed
+                ]
+            })
+
+            statusCode = status
+
+            console.warn(`[ForceFunctions] :: Sent CrashError Simulator to Webhook, Status Code: ${statusCode}`);
 
             message.reply(`Status Code: ${statusCode}`) // Status Code: 200
         } else if(args[0] === "killSystem") {

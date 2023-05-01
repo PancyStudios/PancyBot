@@ -5,8 +5,15 @@
   "exclusiveUsers": [
     {
       "id": "735194324047888466",
-      "name": "KittySoft",
-      "devPermissions": true 
+      "name": "kittysoft",
+      "devPermissions": true,
+      "type": "best_friend" 
+    },
+    {
+      "id": "711329342193664012",
+      "name": "turbis",
+      "devPermissions": true,
+      "type": "owner" 
     }
   ]
 }

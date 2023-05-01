@@ -1,5 +1,4 @@
 import { Model } from "mongoose";
-import chalk from 'chalk'
 
 export class SecuritySystem {
     constructor () {
@@ -11,13 +10,13 @@ export class SecuritySystem {
             const data = await Schema.findOne(findData)
             if(!data) {
                 Promise.reject(`No existe informacion con la condicion findData, usa createData()`)
-                console.warn(chalk.yellow(`No existe informacion con la condicion findData, usa createData()`))
+                console.warn(`No existe informacion con la condicion findData, usa createData()`)
             }
 
             await Schema.findOneAndUpdate(newData)
             Promise.resolve({ response: `Se guardo con exito la informacion de ${SystemName}`})
         } catch (error) {
-            console.error(chalk.red(`SecuritySystem Error: ${error}`))
+            console.error(`SecuritySystem Error: ${error}`)
         }
     }
 
@@ -25,7 +24,7 @@ export class SecuritySystem {
         try {
             const data = await Schema.findOne(findData)
             if(!data) {
-                console.warn(chalk.yellow(`SecuritySystem`))
+                console.warn(`SecuritySystem`)
             }
             return data 
         } catch (error) {
