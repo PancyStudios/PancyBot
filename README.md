@@ -18,11 +18,11 @@ Tambien se agradece si es que quieres contribuir con el codigo haciendo una [**P
 
 **Bot developers** 
 
-- [@ElTurbinas](https://github.com/ElTurbinas)
+- [@ImTurbis](https://github.com/ImTurbis)
 
 **Bot Desingers**
 
 - kittysoft#2976
 - [@SRHectorSE](https://github.com/SRHectorSE)
 
-**CacheSystem** - Basado en SPA
+**AntiRaid System** - Basado en [SPAgency](https://github.com/devEthan6737/SPAgency)
