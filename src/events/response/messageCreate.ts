@@ -10,6 +10,7 @@ import { botStaff } from '../../utils/variables.json'
 import ms from 'ms';
 import antiIpLogger from 'anti-ip-logger'
 const mayus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+export let _guild: GuildDataFirst
 
 export default new Event('messageCreate', async msg => {
     const data = await antiRF.findOne({ user: msg.author.id })

@@ -3,6 +3,7 @@ import { client } from "../..";
 import { Event } from "../../structures/Events";
 import { ExtendedInteraction } from "../../typings/command";
 import { botStaff } from '../../utils/variables.json'
+import { _guild } from "./messageCreate";
 
 export default new Event("interactionCreate", async (interaction) => {
     console.log(interaction.id)
@@ -22,20 +23,23 @@ export default new Event("interactionCreate", async (interaction) => {
             command.run({
                 args: interaction.options as CommandInteractionOptionResolver,
                 client,
-                interaction: interaction as ExtendedInteraction
+                interaction: interaction as ExtendedInteraction,
+                _guild
             });
         } else if (command.inVoiceChannel) {
             if(!(interaction.member as GuildMember).voice.channel) return interaction.followUp("Necesitas estas conectado a un canal de texto")
             command.run({
                 args: interaction.options as CommandInteractionOptionResolver,
                 client,
-                interaction: interaction as ExtendedInteraction
+                interaction: interaction as ExtendedInteraction,
+                _guild
             });
         } else {
             command.run({
                 args: interaction.options as CommandInteractionOptionResolver,
                 client,
-                interaction: interaction as ExtendedInteraction
+                interaction: interaction as ExtendedInteraction,
+                _guild
             });
         }
     }

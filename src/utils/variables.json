@@ -14,6 +14,12 @@
       "name": "turbis",
       "devPermissions": true,
       "type": "owner" 
+    },
+    {
+      "id": "826930402199339018",
+      "name": "a...",
+      "devPermissions": false,
+      "type": "guild_exclusive_owner"
     }
   ]
 }

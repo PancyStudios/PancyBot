@@ -12,7 +12,7 @@ export default new Command({
         required: true
     }],
 
-    async run ({ client, interaction, args }) {
+    async run ({ interaction, args }) {
         const song = args.getString('song')
         const memberChannel = interaction.member.voice.channel.id
 

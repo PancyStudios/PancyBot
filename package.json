@@ -28,6 +28,7 @@
     "blob": "0.0.5",
     "blob-polyfill": "^7.0.20220408",
     "body-parser": "^1.20.0",
+    "cacheger": "^1.1.1",
     "craiyon": "^1.0.0",
     "danbot-hosting": "^0.1.6",
     "discord.js": "^14.9.0",
