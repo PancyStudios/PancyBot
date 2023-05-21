@@ -5,3 +5,4 @@ ErrorLogs/*
 build/*
 src/structures/Client.ts
 newrelic_agent.log
+.vscode/*
