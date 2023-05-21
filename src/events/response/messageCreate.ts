@@ -19,13 +19,11 @@ export default new Event('messageCreate', async msg => {
     if(!guild) return console.log('No is guild');
     if(!guild.available) return console.log('Guild unavilable');
 
-    let _guild = await fecthDataBase(client, guild, false) as GuildDataFirst;
+    let _guild = await fecthDataBase(client, guild, true) as GuildDataFirst;
     if(!_guild) return console.log('No cache');
 
-    let _user = await fecthUsersDataBase(client, author, false)
-    let cache = await client.super.cache.get(msg.author.id);
     console.log(3)
-    let prefix = _guild.configuration.prefix
+    const prefix = _guild.configuration.prefix
     console.log(prefix)
     const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       const prefixRegex = new RegExp(

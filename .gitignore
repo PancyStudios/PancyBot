@@ -3,4 +3,5 @@ node_modules/*
 ErrorLogs/*
 .github/*
 build/*
-src/structures/*
+src/structures/Client.ts
+newrelic_agent.log

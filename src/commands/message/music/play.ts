@@ -13,7 +13,7 @@ export default new Command({
       const memberChannel = message.member.voice.channel.id
 
       // Spawning lavalink player
-      const player1 = await player.createConnection({
+      const player1 = player.createConnection({
         guildId: message.guild.id,
         voiceChannel: message.member.voice.channel.id,
         textChannel: message.channel.id,
@@ -21,7 +21,7 @@ export default new Command({
         mute: false
       })
 
-      const resolve = await client.player.resolve({
+      const resolve = await player.resolve({
         query: (args as string[]).join(' '),
         
       })

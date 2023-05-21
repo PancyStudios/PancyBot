@@ -15,6 +15,7 @@ declare global {
             imageDbUrl: string;
             lavaserver: string;
             lavapassword: string;
+            linkErrorTracker: string;
         }
     }
 }

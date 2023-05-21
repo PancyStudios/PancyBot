@@ -16,13 +16,20 @@ Tambien se agradece si es que quieres contribuir con el codigo haciendo una [**P
 
 > #### **Creditos**
 
-**Bot developers** 
+**Bot Developer** 
 
-- [@ImTurbis](https://github.com/ImTurbis)
+- [@ImTurbis](https://github.com/ImTurbis) 
+
+**Web Developers / Desingers**
+
+- [@XTheRolexCrack](https://github.com/XTheRolexCrack) - Web Desinger / Developer
+- [@ImTurbis](https://github.com/ImTurbis) - Web Developer
 
 **Bot Desingers**
 
-- kittysoft#2976
+- ・🖤﹕Kitty𝔊𝔬𝔱𝔥 ！‧₊˚. 𖤐#6495
 - [@SRHectorSE](https://github.com/SRHectorSE)
 
 **AntiRaid System** - Basado en [SPAgency](https://github.com/devEthan6737/SPAgency)
+
+

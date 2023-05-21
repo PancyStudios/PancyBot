@@ -4,6 +4,23 @@ import { EmbedBuilder } from 'discord.js';
 import { version } from '../../../package.json'
 import { ReportErrorOptions } from '../../typings/reportError';
 import { client } from '../..';
+import winston from 'winston';
+import NewRelic from 'newrelic';
+
+const logger = winston.createLogger({
+  level: 'error',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({ filename: 'error.log' }),
+  ],
+});
+
+export class CrashError extends Error {
+    constructor(message: string, location: string, type: string) {
+      super(`[${type}] ${message} at ${location}`);
+      logger.error(`[${type}] ${message} at ${location}`);
+    }
+  }
 export class AntiCrash {
     constructor() {}
 
@@ -27,11 +44,13 @@ export class AntiCrash {
             }   
         }, 1000)
 
-        process.on('unhandledRejection', async (reason, p) => {
+        process.on('unhandledRejection', async (err, reason, p,) => {
             errors++;
             console.log(errors)
             console.log(' [antiCrash] :: Unhandled Rejection/Catch');
             console.log(reason, p);
+            logger.error(`unhandled Rejection: ${err.message}`)
+            NewRelic.noticeError(err)
             const data = `${reason} ${p}`
             if (!existsSync(`${process.cwd()}/ErrorLogs`)) {
                 mkdirSync(`${process.cwd()}/ErrorLogs`, { recursive: true});
@@ -62,6 +81,8 @@ export class AntiCrash {
         process.on("uncaughtException", (err, origin) => {
             console.log(' [antiCrash] :: Uncaught Exception/Catch');
             console.log(err, origin);
+            logger.error(`uncaught Exception: ${err.message}`)
+            NewRelic.noticeError(err)
             const data = `${err + origin}`
             if (!existsSync(`${process.cwd()}/ErrorLogs`)) {
                 mkdirSync(`${process.cwd()}/ErrorLogs`, { recursive: true});
@@ -84,12 +105,6 @@ export class AntiCrash {
         process.on('multipleResolves', (type, promise, reason, origin) => {
             console.log(' [antiCrash] :: Multiple Resolves');
             console.log(type, reason, promise, origin);
-            const data = `${type + reason + promise + origin}`
-            if (!existsSync(`${process.cwd()}/ErrorLogs`)) {
-                mkdirSync(`${process.cwd()}/ErrorLogs`, { recursive: true});
-            }
-    
-            writeFileSync(""+process.cwd()+"/ErrorLogs/multipleResolves_"+Date.now()+".log", data);
         });
     }
 
@@ -114,8 +129,6 @@ export class AntiCrash {
         })
 
         statusCode = status
-
-        console.warn(`[AntiCrash] :: Sent CrashError to Webhook, Status Code: ${statusCode}`);
 
         console.warn(`[AntiCrash] :: Sent CrashError to Webhook, Status Code: ${statusCode}`);
     }
