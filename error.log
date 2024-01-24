@@ -18,3 +18,9 @@
 {"level":"error","message":"uncaught Exception: [Poru Websocket] Unable to connect with v1 node after 5 tries"}
 {"level":"error","message":"unhandled Rejection: other side closed"}
 {"level":"error","message":"uncaught Exception: connect ECONNREFUSED 176.31.203.30:3625"}
+{"level":"error","message":"uncaught Exception: ENOENT: no such file or directory, scandir 'C:\\Users\\felic\\Documents\\Github\\PancyBot\\src\\temp\\images'"}
+{"level":"error","message":"uncaught Exception: ENOENT: no such file or directory, scandir 'C:\\Users\\felic\\Documents\\Github\\PancyBot\\src\\temp\\images'"}
+{"level":"error","message":"uncaught Exception: ENOENT: no such file or directory, scandir 'C:\\Users\\felic\\Documents\\Github\\PancyBot\\src\\temp\\images'"}
+{"level":"error","message":"uncaught Exception: ENOENT: no such file or directory, scandir 'C:\\Users\\felic\\Documents\\Github\\PancyBot\\src\\temp\\images'"}
+{"level":"error","message":"uncaught Exception: ENOENT: no such file or directory, scandir 'C:\\Users\\felic\\Documents\\Github\\PancyBot\\src\\temp\\images'"}
+{"level":"error","message":"uncaught Exception: ENOENT: no such file or directory, scandir 'C:\\Users\\felic\\Documents\\Github\\PancyBot\\src\\temp\\images'"}

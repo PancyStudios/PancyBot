@@ -82,12 +82,12 @@ const spotifyClient = new Spotify({
 
 export const player = new Poru(client, [{
     name: "v1",
-    host: 'pnode1.danbot.host',
-    password: "pancybot91",
+    host: process.env.linkserver,
+    password: process.env.linkpassword,
     port: 3625,
     secure: false
 }], {
-    defaultPlatform: 'ytsearch',
+    defaultPlatform: 'spsearch',
     send: null,
     autoResume: false,
     library: "discord.js",
@@ -170,7 +170,7 @@ export const player = new Poru(client, [{
 
     const embed = new EmbedBuilder()
         .setColor('Blurple')
-        .setTitle('Reproduciendo')
+        .setTitle('Started Playing')
         .setThumbnail(track.info.image)
         .setTimestamp()
         .setDescription(`**Title:** [${track.info.title}](${track.info.uri}) \n\n **Song Duration** ${ms(track.info.length)}   \n\n **Status:** **Playing** \n\n *Join my VC to use buttons*`)
@@ -178,7 +178,7 @@ export const player = new Poru(client, [{
 
     const embed3 = new EmbedBuilder()
         .setColor('Blurple')
-        .setTitle('La cancion termino')
+        .setTitle('Song was Ended')
         .setThumbnail(track.info.image)
         .setTimestamp()
         .setDescription(`**Title:** [${track.info.title}](${track.info.uri}) \n\n **Song Duration** ${ms(track.info.length)}   \n\n **Status:** **Finished** `)
@@ -195,7 +195,7 @@ export const player = new Poru(client, [{
     collector.on('collect', async i => {
     const embed4 = new EmbedBuilder()
         .setColor('Blurple')
-        .setTitle('Reproduciendo')
+        .setTitle('Started Playing')
         .setThumbnail(track.info.image)
         .setTimestamp()
         .setDescription(`**Title:** [${track.info.title}](${track.info.uri}) \n\n **Song Duration** ${ms(track.info.length)}   \n\n **Status:** Resumed by <@${i.user.id}> \n\n *People in channel can use button* `)
@@ -203,7 +203,7 @@ export const player = new Poru(client, [{
 
         const embed2 = new EmbedBuilder()
         .setColor('Blurple')
-        .setTitle('Pausado')
+        .setTitle('Music Paused')
         .setThumbnail(track.info.image)
         .setTimestamp()
         .setDescription(`**Title:** [${track.info.title}](${track.info.uri}) \n\n **Song Duration:** ${ms(track.info.length)}   \n\n **Status:** Paused by <@${i.user.id}> \n\n *People in channel can use button* `)
@@ -211,7 +211,7 @@ export const player = new Poru(client, [{
 
         const embed5 = new EmbedBuilder()
         .setColor('Blurple')
-        .setTitle('Reproduciendo')
+        .setTitle('Started Playing')
         .setThumbnail(track.info.image)
         .setTimestamp()
         .setDescription(`**Title:** [${track.info.title}](${track.info.uri}) \n\n **Song Duration** ${ms(track.info.length)}   \n\n **Status:** Skiped by <@${i.user.id}> `)
@@ -219,13 +219,13 @@ export const player = new Poru(client, [{
 
                         
     if (i.customId === 'pause') {
-            if (i.guild.members.cache.get('').voice.channel !== (i.member as GuildMember).voice.channel) {
-            await i.reply({ content: 'Necesitas unirte a mi VC!', ephemeral: true});
-            }
+            // if (i.guild.me.voice.channel !== i.member.voice.channel) {
+            //  await i.reply({ content: 'You have to join my VC!', ephemeral: true});
+            // }
         
     await i.deferUpdate();
     if(player.isPaused){
-        await i.reply({ content: 'La musica ya estaba pausada', ephemeral: true});
+        await i.reply({ content: 'Music is Already Paused', ephemeral: true});
     }  
     
     if (!player.isPaused)  {
@@ -257,13 +257,10 @@ export const player = new Poru(client, [{
 })
 .on('trackEnd', (player, track, _lavalink) => {
     const guild = client.guilds.cache.get(player.guildId);
-    (guild.channels.cache.get(player.textChannel) as TextChannel).send({content:`Cancion terminada`});
-})
-.on('queueEnd', (player) => {
-    const guild = client.guilds.cache.get(player.guildId);
-    (guild.channels.cache.get(player.textChannel) as TextChannel).send({content:`Fila de reproduccion terminada!`});
+    (guild.channels.cache.get(player.textChannel) as TextChannel).send({content:`Queue has ended!`});
     player.destroy();
 })
+
 
 
 

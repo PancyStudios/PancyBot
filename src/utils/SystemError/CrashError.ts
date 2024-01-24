@@ -5,7 +5,6 @@ import { version } from '../../../package.json'
 import { ReportErrorOptions } from '../../typings/reportError';
 import { client } from '../..';
 import winston from 'winston';
-import NewRelic from 'newrelic';
 
 const logger = winston.createLogger({
   level: 'error',
@@ -50,7 +49,6 @@ export class AntiCrash {
             console.log(' [antiCrash] :: Unhandled Rejection/Catch');
             console.log(reason, p);
             logger.error(`unhandled Rejection: ${err.message}`)
-            NewRelic.noticeError(err)
             const data = `${reason} ${p}`
             if (!existsSync(`${process.cwd()}/ErrorLogs`)) {
                 mkdirSync(`${process.cwd()}/ErrorLogs`, { recursive: true});
@@ -82,7 +80,6 @@ export class AntiCrash {
             console.log(' [antiCrash] :: Uncaught Exception/Catch');
             console.log(err, origin);
             logger.error(`uncaught Exception: ${err.message}`)
-            NewRelic.noticeError(err)
             const data = `${err + origin}`
             if (!existsSync(`${process.cwd()}/ErrorLogs`)) {
                 mkdirSync(`${process.cwd()}/ErrorLogs`, { recursive: true});

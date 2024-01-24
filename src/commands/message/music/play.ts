@@ -13,7 +13,7 @@ export default new Command({
       const memberChannel = message.member.voice.channel.id
 
       // Spawning lavalink player
-      const player1 = player.createConnection({
+      const player1 = await player.createConnection({
         guildId: message.guild.id,
         voiceChannel: message.member.voice.channel.id,
         textChannel: message.channel.id,
@@ -23,11 +23,11 @@ export default new Command({
 
       const resolve = await player.resolve({
         query: (args as string[]).join(' '),
-        
+        source: "spsearch"
       })
       const { loadType, tracks, playlistInfo } = resolve;
       // Adding in queue
-      if (loadType === "PLAYLIST_LOADED") {
+      if (loadType === ("PLAYLIST_LOADED" as unknown)) {
   
         for (let x of resolve.tracks) {
            x.info.requester = message.author;
@@ -37,7 +37,7 @@ export default new Command({
         message.channel.send({ content: `Added: \`${resolve.tracks.length} from ${resolve.playlistInfo.name}\`` });
         if (!player1.isPlaying && !player1.isPaused) return  player1.play();
   
-      }else if(loadType ==="SEARCH_RESULT"|| loadType ==="TRACK_LOADED"){
+      }else if(loadType === ("SEARCH_RESULT" as unknown)|| loadType ===("TRACK_LOADED" as unknown)){
         const track = tracks.shift();
       track.info.requester = message.author;
   
@@ -48,7 +48,6 @@ export default new Command({
           if (!player1.isPlaying && !player1.isPaused) return  player1.play();
           
       }else{
-        
          return message.channel.send({ content: "There are no results found."})
       }
     }

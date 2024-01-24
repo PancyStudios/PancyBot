@@ -13,9 +13,11 @@ declare global {
             username: string;
             password: string;
             imageDbUrl: string;
-            lavaserver: string;
-            lavapassword: string;
+            linkserver: string;
+            linkpassword: string;
             linkErrorTracker: string;
+            spotifyClientId: string;
+            spotifyClientSecret: string;
         }
     }
 }

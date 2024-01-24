@@ -12,15 +12,15 @@ export default new Command({
             type: ApplicationCommandOptionType.String,
             choices: [
                 {
-                    name: 'Todos los bots',
+                    name: 'All bots',
                     value: 'all'
                 },
                 {
-                    name: 'Solo bots sin verificar',
+                    name: 'Unverified bots',
                     value: 'only_nv'
                 },
                 {
-                    name: 'Solo bots verificados',
+                    name: 'Verified bots',
                     value: 'only_v'
                 }
             ],
