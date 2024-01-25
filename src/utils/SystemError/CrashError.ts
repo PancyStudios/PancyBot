@@ -1,6 +1,6 @@
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import axios from 'axios';
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, WebhookClient, MessageMentionOptions } from 'discord.js';
 import { version } from '../../../package.json'
 import { ReportErrorOptions } from '../../typings/reportError';
 import { client } from '../..';
@@ -13,6 +13,7 @@ const logger = winston.createLogger({
     new winston.transports.File({ filename: 'error.log' }),
   ],
 });
+const Webhook = new WebhookClient({ url: 'https://discord.com/api/webhooks/990077896498483260/tATJeJMEF03sfW0G3YwUCCrmGd7znIimQuFpwG-5tMs8DGQsMwoTFPMdL60bt8cf0_vJ'})
 
 export class CrashError extends Error {
     constructor(message: string, location: string, type: string) {
@@ -62,18 +63,15 @@ export class AntiCrash {
             .setColor('Red')
             .setFooter({ text: `Pancybot v${version}` })
 
-            let statusCode: number
-
-            const {status} = await axios.post(process.env.errorWebhook, {
+            const message = await Webhook.send({
                 username: `PancyBot ${version} | CrashError`,
+                avatarURL: 'https://califerbot.tk/assets/img/LaTurbis.jpg',
                 embeds: [
                     Embed
-                ]
+                ],
             })
 
-            statusCode = status
-
-            console.warn(`[AntiCrash] :: Sent CrashError to Webhook, Status Code: ${statusCode}`);
+            console.warn(`[AntiCrash] :: Sent CrashError to Webhook, Type: ${message.type}`);
             
         });
         process.on("uncaughtException", (err, origin) => {
@@ -116,17 +114,14 @@ export class AntiCrash {
         .setFooter({ text: `Pancybot v${version}` })
 
 
-        let statusCode: number
-
-        const {status} = await axios.post(process.env.errorWebhook, {
+        const message = await Webhook.send({
             username: `PancyBot ${version} | CrashError`,
+            avatarURL: 'https://califerbot.tk/assets/img/LaTurbis.jpg',
             embeds: [
                 Embed
-            ]
+            ],
         })
 
-        statusCode = status
-
-        console.warn(`[AntiCrash] :: Sent CrashError to Webhook, Status Code: ${statusCode}`);
+        console.warn(`[AntiCrash] :: Sent CrashError to Webhook, Type: ${message.type}`);
     }
 }

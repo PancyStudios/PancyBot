@@ -18,7 +18,7 @@ import ms from 'ms';
 donenv.config();
 const firstTime = Date.now();
 
-var PORT = process.env.PORT || 3000
+var PORT = process.env.PORT || 2031
 export const client = new ExtendedClient()
 export const crashClient = new AntiCrash()
 export const utils = new PancyBotUtils()
@@ -101,6 +101,7 @@ export const player = new Poru(client, [{
 .on('nodeError', async (err) => { 
     console.error(`[CRITICAL] Error al conectar con el servidor local de lavalink: ${err.name}`)
     console.warn('[CRITICAL] Intentando reconectar...')
+    console.log(err)
     await crashClient.report({
         error: 'Lavalink 401',
         message: `Error al conectar con el servidor local de lavalink: ${err.name}`
